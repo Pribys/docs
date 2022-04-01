@@ -1,16 +1,16 @@
 # Components Basics
 
-Components allow us to split the UI into independent and reusable pieces, and think about each piece in isolation. It's common for an app to be organized into a tree of nested components:
+Los componentes nos permiten dividir la interfaz de usuario en piezas independientes y reutilizables, y pensar en cada pieza de forma aislada. Es común que una aplicación se organice en un árbol de componentes anidados:
 
 ![Component Tree](./images/components.png)
 
 <!-- https://www.figma.com/file/qa7WHDQRWuEZNRs7iZRZSI/components -->
 
-This is very similar to how we nest native HTML elements, but Vue implements its own component model that allow us to encapsulate custom content and logic in each component. Vue also plays nicely with native Web Components. If you are curious about the relationship between Vue Components and native Web Components, [read more here](/guide/extras/web-components.html).
+Es bastante parecido a cómo anidamos elementos HTML nativos, pero Vue implementa su propio modelo de componentes que nos permite encapsular contenido y lógica personalizados en cada componente. Vue también funciona bien con componentes web nativos. Si tienes curiosidad acerca de la relación entre los componentes Vue y los componentes web nativos, [lee más aquí](/guide/extras/web-components.html).
 
-## Defining a Component
+## Definir un componente
 
-When using a build step, we typically define each Vue component in a dedicated file using the `.vue` extension - known as a [Single-File Component](/guide/scaling-up/sfc.html) (SFC for short):
+Al construir una aplicación, generalmente, definimos cada componente de Vue en un solo archivo, usando la extensión `.vue` -conocido como [Componente de Archivo Único](/guide/scaling-up/sfc.html) (SFC, de Single-File Component, para abreviar, o CAU en español):
 
 <div class="options-api">
 
@@ -26,7 +26,7 @@ export default {
 </script>
 
 <template>
-  <button @click="count++">You clicked me {{ count }} times.</button>
+  <button @click="count++">Me has pulsado {{ count }} veces.</button>
 </template>
 ```
 
@@ -41,13 +41,13 @@ const count = ref(0)
 </script>
 
 <template>
-  <button @click="count++">You clicked me {{ count }} times.</button>
+  <button @click="count++">Me has pulsado {{ count }} veces.</button>
 </template>
 ```
 
 </div>
 
-When not using a build step, a Vue component can be defined as a plain JavaScript object containing Vue-specific options:
+Esta es la manera normal de definir componentes Vue, sin embargo, requiere de una compilación más que podría evitarse si escribimos nuestro código Vue como JavaScript a la manera tradicional:
 
 <div class="options-api">
 
@@ -86,11 +86,11 @@ export default {
 
 </div>
 
-The template is inlined as a JavaScript string here, which Vue will compile on the fly. You can also use an ID selector pointing to an element (usually native `<template>` elements) - Vue will use its content as the template source.
+El template, ahora está integrado como una cadena de JavaScript, que Vue compilará sobre la marcha. También se podría usar un selector de ID que apunte a un elemento (generalmente elementos `<template>` nativos) -Vue usará su contenido como fuente de plantilla.
 
-The example above defines a single component and exports it as the default export of a `.js` file, but you can use named exports to export multiple components from the same file.
+El ejemplo anterior define un solo componente y lo exporta de modo predeterminado como un archivo `.js`, pero es posible hacer exportaciones de múltiples componentes desde el mismo archivo.
 
-## Using a Component
+## Utilizar un componente
 
 :::tip
 We will be using SFC syntax for the rest of this guide - the concepts around components are the same regardless of whether you are using a build step or not. The [Examples](/examples/) section shows component usage in both scenarios.
