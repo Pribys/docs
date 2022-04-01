@@ -93,10 +93,10 @@ El ejemplo anterior define un solo componente y lo exporta de modo predeterminad
 ## Utilizar un componente
 
 :::tip
-We will be using SFC syntax for the rest of this guide - the concepts around components are the same regardless of whether you are using a build step or not. The [Examples](/examples/) section shows component usage in both scenarios.
+Usaremos la sintaxis SFC para el resto de la guía: los conceptos sobre los componentes son los mismos independientemente de si la utilizamos o no. La sección [Ejemplos](/ejemplos/) muestra el uso de componentes en ambos escenarios.
 :::
 
-To use a child component, we need to import it in the parent component. Assuming we placed our counter component inside a file called `ButtonCounter.vue`, the component will be exposed as the file's default export:
+Para usar un componente secundario, debemos importarlo en el componente principal. Suponiendo que tenemos nuestro componente *contador* dentro de un archivo llamado `ButtonCounter.vue`, debemos colocar este dentro del *export default* del archivo del componente principal:
 
 <div class="options-api">
 
@@ -112,13 +112,13 @@ export default {
 </script>
 
 <template>
-  <h1>Here is a child component!</h1>
+  <h1>¡Aquí va el componente secundario!</h1>
   <ButtonCounter />
 </template>
 ```
 
-To expose the imported component to our template, we need to [register](/guide/components/registration.html) it with the `components` option. The component will then be available as a tag using the key it is registered under.
-
+Para usar el componente importado en nuestra plantilla, necesitamos [registrarlo](/guide/components/registration.html) con la opción `components`. El componente estará entonces disponible como una etiqueta utilizando el nombre con el que está registrado.
+  
 </div>
 
 <div class="composition-api">
@@ -129,7 +129,7 @@ import ButtonCounter from './ButtonCounter.vue'
 </script>
 
 <template>
-  <h1>Here is a child component!</h1>
+  <h1>¡Aquí va el componente secundario!</h1>
   <ButtonCounter />
 </template>
 ```
@@ -138,9 +138,9 @@ With `<script setup>`, imported components are automatically made available to t
 
 </div>
 
-It's also possible to globally register a component, making it available to all components in a given app without having to import it. The pros and cons of global vs. local registration is discussed in the dedicated [Component Registration](/guide/components/registration.html) section.
+También es posible registrar globalmente un componente, quedando así disponible para todos los demás componentes de una aplicación determinada, sin tener que importarlo. Los pros y los contras del registro global frente al local se analizan en la sección [Registro de componentes](/guide/components/registration.html).
 
-Components can be reused as many times as you want:
+Los componentes se pueden reutilizar tantas veces como queramos:
 
 ```vue-html
 <h1>Here are many child components!</h1>
@@ -156,16 +156,16 @@ Components can be reused as many times as you want:
 </div>
 <div class="composition-api">
 
-[Try it in the Playground](https://sfc.vuejs.org/#eyJBcHAudnVlIjoiPHNjcmlwdCBzZXR1cD5cbmltcG9ydCBCdXR0b25Db3VudGVyIGZyb20gJy4vQnV0dG9uQ291bnRlci52dWUnXG48L3NjcmlwdD5cblxuPHRlbXBsYXRlPlxuXHQ8aDE+SGVyZSBhcmUgbWFueSBjaGlsZCBjb21wb25lbnRzITwvaDE+XG5cdDxCdXR0b25Db3VudGVyIC8+XG5cdDxCdXR0b25Db3VudGVyIC8+XG5cdDxCdXR0b25Db3VudGVyIC8+XG48L3RlbXBsYXRlPiIsImltcG9ydC1tYXAuanNvbiI6IntcbiAgXCJpbXBvcnRzXCI6IHtcbiAgICBcInZ1ZVwiOiBcImh0dHBzOi8vc2ZjLnZ1ZWpzLm9yZy92dWUucnVudGltZS5lc20tYnJvd3Nlci5qc1wiXG4gIH1cbn0iLCJCdXR0b25Db3VudGVyLnZ1ZSI6IjxzY3JpcHQgc2V0dXA+XG5pbXBvcnQgeyByZWYgfSBmcm9tICd2dWUnXG5cbmNvbnN0IGNvdW50ID0gcmVmKDApXG48L3NjcmlwdD5cblxuPHRlbXBsYXRlPlxuICA8YnV0dG9uIEBjbGljaz1cImNvdW50KytcIj5cbiAgICBZb3UgY2xpY2tlZCBtZSB7eyBjb3VudCB9fSB0aW1lcy5cbiAgPC9idXR0b24+XG48L3RlbXBsYXRlPiJ9)
+[Probar el ejemplo](https://sfc.vuejs.org/#eyJBcHAudnVlIjoiPHNjcmlwdCBzZXR1cD5cbmltcG9ydCBCdXR0b25Db3VudGVyIGZyb20gJy4vQnV0dG9uQ291bnRlci52dWUnXG48L3NjcmlwdD5cblxuPHRlbXBsYXRlPlxuXHQ8aDE+SGVyZSBhcmUgbWFueSBjaGlsZCBjb21wb25lbnRzITwvaDE+XG5cdDxCdXR0b25Db3VudGVyIC8+XG5cdDxCdXR0b25Db3VudGVyIC8+XG5cdDxCdXR0b25Db3VudGVyIC8+XG48L3RlbXBsYXRlPiIsImltcG9ydC1tYXAuanNvbiI6IntcbiAgXCJpbXBvcnRzXCI6IHtcbiAgICBcInZ1ZVwiOiBcImh0dHBzOi8vc2ZjLnZ1ZWpzLm9yZy92dWUucnVudGltZS5lc20tYnJvd3Nlci5qc1wiXG4gIH1cbn0iLCJCdXR0b25Db3VudGVyLnZ1ZSI6IjxzY3JpcHQgc2V0dXA+XG5pbXBvcnQgeyByZWYgfSBmcm9tICd2dWUnXG5cbmNvbnN0IGNvdW50ID0gcmVmKDApXG48L3NjcmlwdD5cblxuPHRlbXBsYXRlPlxuICA8YnV0dG9uIEBjbGljaz1cImNvdW50KytcIj5cbiAgICBZb3UgY2xpY2tlZCBtZSB7eyBjb3VudCB9fSB0aW1lcy5cbiAgPC9idXR0b24+XG48L3RlbXBsYXRlPiJ9)
 
 </div>
 
-Notice that when clicking on the buttons, each one maintains its own, separate `count`. That's because each time you use a component, a new **instance** of it is created.
+Vemos que al hacer clic en los botones, cada uno mantiene su propio `conteo` separado. Esto se debe a que cada vez que utilizamos un componente, se crea una nueva **instancia** del mismo.
 
-In SFCs, it's recommended to use `PascalCase` tag names for child components to differentiate from native HTML elements. Although native HTML tag names are case-insensitive, Vue SFC is a compiled format so we are able to use case-sensitive tag names in it. We are also able to use `/>` to close a tag.
+En SFC, se recomienda usar nombres de etiquetas `PascalCase` para los componentes secundarios para diferenciarlos de los elementos HTML nativos. Aunque los nombres de etiquetas HTML nativos no distinguen entre mayúsculas y minúsculas, Vue SFC es un formato compilado, por lo que podemos usar nombres de etiquetas que distinguen entre mayúsculas y minúsculas. También podemos usar `/>` para cerrar una etiqueta.
 
-If you are authoring your templates directly in a DOM (e.g. as the content of a native `<template>` element), the template will be subject to the browser's native HTML parsing behavior. In such cases, you will need to use `kebab-case` and explicit closing tags for components:
-
+Si estás creando las plantillas directamente en el DOM (por ejemplo, como el contenido del elemento `<template>` nativo), la plantilla estará sujeta al comportamiento de análisis de HTML nativo del navegador. En tales casos, deberá usar `kebab-case` y etiquetas de cierre explícitas para los componentes:
+  
 ```vue-html
 <!-- if this template is written in the DOM -->
 <button-counter></button-counter>
