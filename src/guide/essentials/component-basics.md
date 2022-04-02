@@ -173,14 +173,13 @@ Si estás creando las plantillas directamente en el DOM (por ejemplo, como el co
 <button-counter></button-counter>
 ```
 
-See [DOM template parsing caveats](#dom-template-parsing-caveats) for more details.
 Ver las advertencias de [análisis de plantillas DOM](#advertencias-del-analisis-de-plantilla-dom) para saber más detalles.
 
 ## Pasar las Props
 
 Si estamos creando un blog, es probable que necesitemos un componente que represente una publicación en el blog. Querremos que todas las publicaciones del blog compartan el mismo diseño visual, pero con contenido diferente. Dicho componente no será útil a menos que podamos pasarle datos, como el título y el contenido de la publicación específica que queremos mostrar. Ahí es donde entran los props.
 
-Los props son atributos personalizados que pueden registrarse en un componente. Para pasar un título a nuestro componente para una publicación del blog, debemos declararlo en la lista de props que acepta este componente, utilizando <span class="options-api">[`props`](/api/options-state.html# props) option</span><span class="composition-api">[`defineProps`](/api/sfc-script-setup.html#defineprops-defineemits) macro</span>:
+Los props son atributos personalizados que pueden registrarse en un componente. Para pasar un título a nuestro componente para una publicación del blog, debemos declararlo en la lista de props que acepta este componente, utilizando la opción <span class="options-api">[`props`](/api/options-state.html# props)</span><span class="composition-api">[`defineProps`](/api/sfc-script-setup.html#defineprops-defineemits) macro</span>:
 
 <div class="options-api">
 
