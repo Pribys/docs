@@ -10,7 +10,7 @@ Es bastante parecido a cómo anidamos elementos HTML nativos, pero Vue implement
 
 ## Definir un componente
 
-Al construir una aplicación, generalmente, definimos cada componente de Vue en un solo archivo, usando la extensión `.vue` -conocido como [Componente de Archivo Único](/guide/scaling-up/sfc.html) (SFC, de Single-File Component, para abreviar, o CAU en español):
+Al construir una aplicación, generalmente, definimos cada componente de Vue en un solo archivo, usando la extensión `.vue`. Esto se conoce como [Componente de Archivo Único](/guide/scaling-up/sfc.html) (CAU, para abreviar, o SFC, de Single-File Component, en inglés):
 
 <div class="options-api">
 
@@ -47,7 +47,7 @@ const count = ref(0)
 
 </div>
 
-Esta es la manera normal de definir componentes Vue, sin embargo, requiere de una compilación más que podría evitarse si escribimos nuestro código Vue como JavaScript a la manera tradicional:
+Esta es la manera normal de definir componentes Vue, sin embargo, requiere de una compilación más, que podría evitarse si escribimos nuestro código Vue como JavaScript a la manera tradicional:
 
 <div class="options-api">
 
@@ -86,17 +86,17 @@ export default {
 
 </div>
 
-El template, ahora está integrado como una cadena de JavaScript, que Vue compilará sobre la marcha. También se podría usar un selector de ID que apunte a un elemento (generalmente elementos `<template>` nativos) -Vue usará su contenido como fuente de plantilla.
+El template, ahora está integrado como una cadena de JavaScript, que Vue compilará sobre la marcha. También se podría usar un selector de ID que apunte a un elemento (generalmente elementos `<template>` nativos). Vue usará su contenido como fuente de la plantilla.
 
 El ejemplo anterior define un solo componente y lo exporta de modo predeterminado como un archivo `.js`, pero es posible hacer exportaciones de múltiples componentes desde el mismo archivo.
 
 ## Utilizar un componente
 
 :::tip
-Usaremos la sintaxis SFC para el resto de la guía: los conceptos sobre los componentes son los mismos independientemente de si la utilizamos o no. La sección [Ejemplos](/examples/) muestra el uso de componentes en ambos escenarios.
+Usaremos la sintaxis CAU para el resto de la guía: los conceptos sobre los componentes son los mismos independientemente de si la utilizamos o no. La sección [Ejemplos](/examples/) muestra el uso de componentes en ambos escenarios.
 :::
 
-Para usar un componente secundario, debemos importarlo en el componente principal. Suponiendo que tenemos nuestro componente *contador* dentro de un archivo llamado `ButtonCounter.vue`, debemos colocar este dentro del *export default* del archivo del componente principal:
+Para usar un componente secundario, o hijo, debemos importarlo en el componente principal, o padre. Supongamos que hacemos un componente que lleve un conteo en un archivo llamado `ButtonCounter.vue`. Para utilizarlo, debemos colocar este dentro del *export default* del archivo del componente principal:
 
 <div class="options-api">
 
@@ -117,7 +117,7 @@ export default {
 </template>
 ```
 
-Para usar el componente importado en nuestra plantilla, necesitamos [registrarlo](/guide/components/registration.html) con la opción `components`. El componente estará entonces disponible como una etiqueta utilizando el nombre con el que está registrado.
+Para usar el componente importado en nuestra plantilla, necesitamos [registrarlo](/guide/components/registration.html) con la opción `components`. El componente estará entonces disponible como una etiqueta, utilizando el nombre con el que está registrado.
   
 </div>
 
@@ -143,7 +143,7 @@ También es posible registrar globalmente un componente, quedando así disponibl
 Los componentes se pueden reutilizar tantas veces como queramos:
 
 ```vue-html
-<h1>Here are many child components!</h1>
+<h1>¡Aquí tenemos varios componentes secundarios!</h1>
 <ButtonCounter />
 <ButtonCounter />
 <ButtonCounter />
@@ -151,7 +151,7 @@ Los componentes se pueden reutilizar tantas veces como queramos:
 
 <div class="options-api">
 
-[Try it in the Playground](https://sfc.vuejs.org/#eyJBcHAudnVlIjoiPHNjcmlwdD5cbmltcG9ydCBCdXR0b25Db3VudGVyIGZyb20gJy4vQnV0dG9uQ291bnRlci52dWUnXG4gIFxuZXhwb3J0IGRlZmF1bHQge1xuICBjb21wb25lbnRzOiB7XG4gICAgQnV0dG9uQ291bnRlclxuICB9XG59XG48L3NjcmlwdD5cblxuPHRlbXBsYXRlPlxuXHQ8aDE+SGVyZSBhcmUgbWFueSBjaGlsZCBjb21wb25lbnRzITwvaDE+XG5cdDxCdXR0b25Db3VudGVyIC8+XG5cdDxCdXR0b25Db3VudGVyIC8+XG5cdDxCdXR0b25Db3VudGVyIC8+XG48L3RlbXBsYXRlPiIsImltcG9ydC1tYXAuanNvbiI6IntcbiAgXCJpbXBvcnRzXCI6IHtcbiAgICBcInZ1ZVwiOiBcImh0dHBzOi8vc2ZjLnZ1ZWpzLm9yZy92dWUucnVudGltZS5lc20tYnJvd3Nlci5qc1wiXG4gIH1cbn0iLCJCdXR0b25Db3VudGVyLnZ1ZSI6IjxzY3JpcHQ+XG5leHBvcnQgZGVmYXVsdCB7XG4gIGRhdGEoKSB7XG4gICAgcmV0dXJuIHtcbiAgICAgIGNvdW50OiAwXG4gICAgfVxuICB9XG59XG48L3NjcmlwdD5cblxuPHRlbXBsYXRlPlxuICA8YnV0dG9uIEBjbGljaz1cImNvdW50KytcIj5cbiAgICBZb3UgY2xpY2tlZCBtZSB7eyBjb3VudCB9fSB0aW1lcy5cbiAgPC9idXR0b24+XG48L3RlbXBsYXRlPiJ9)
+[Probar en la zona de práctica](https://sfc.vuejs.org/#eyJBcHAudnVlIjoiPHNjcmlwdD5cbmltcG9ydCBCdXR0b25Db3VudGVyIGZyb20gJy4vQnV0dG9uQ291bnRlci52dWUnXG4gIFxuZXhwb3J0IGRlZmF1bHQge1xuICBjb21wb25lbnRzOiB7XG4gICAgQnV0dG9uQ291bnRlclxuICB9XG59XG48L3NjcmlwdD5cblxuPHRlbXBsYXRlPlxuXHQ8aDE+SGVyZSBhcmUgbWFueSBjaGlsZCBjb21wb25lbnRzITwvaDE+XG5cdDxCdXR0b25Db3VudGVyIC8+XG5cdDxCdXR0b25Db3VudGVyIC8+XG5cdDxCdXR0b25Db3VudGVyIC8+XG48L3RlbXBsYXRlPiIsImltcG9ydC1tYXAuanNvbiI6IntcbiAgXCJpbXBvcnRzXCI6IHtcbiAgICBcInZ1ZVwiOiBcImh0dHBzOi8vc2ZjLnZ1ZWpzLm9yZy92dWUucnVudGltZS5lc20tYnJvd3Nlci5qc1wiXG4gIH1cbn0iLCJCdXR0b25Db3VudGVyLnZ1ZSI6IjxzY3JpcHQ+XG5leHBvcnQgZGVmYXVsdCB7XG4gIGRhdGEoKSB7XG4gICAgcmV0dXJuIHtcbiAgICAgIGNvdW50OiAwXG4gICAgfVxuICB9XG59XG48L3NjcmlwdD5cblxuPHRlbXBsYXRlPlxuICA8YnV0dG9uIEBjbGljaz1cImNvdW50KytcIj5cbiAgICBZb3UgY2xpY2tlZCBtZSB7eyBjb3VudCB9fSB0aW1lcy5cbiAgPC9idXR0b24+XG48L3RlbXBsYXRlPiJ9)
 
 </div>
 <div class="composition-api">
@@ -162,9 +162,9 @@ Los componentes se pueden reutilizar tantas veces como queramos:
 
 Vemos que al hacer clic en los botones, cada uno mantiene su propio `conteo` separado. Esto se debe a que cada vez que utilizamos un componente, se crea una nueva **instancia** del mismo.
 
-En SFC, se recomienda usar nombres de etiquetas `PascalCase` para los componentes secundarios para diferenciarlos de los elementos HTML nativos. Aunque los nombres de etiquetas HTML nativos no distinguen entre mayúsculas y minúsculas, Vue SFC es un formato compilado, por lo que podemos usar nombres de etiquetas que distinguen entre mayúsculas y minúsculas. También podemos usar `/>` para cerrar una etiqueta.
+En CAU, se recomienda usar nombres de etiquetas `PascalCase` para los componentes secundarios para diferenciarlos de los elementos HTML nativos. Aunque los nombres de etiquetas HTML nativos no distinguen entre mayúsculas y minúsculas, Vue CAU es un formato compilado, por lo que podemos usar nombres de etiquetas que distinguen entre mayúsculas y minúsculas. También podemos usar `/>` para cerrar una etiqueta.
 
-Si estás creando las plantillas directamente en el DOM (por ejemplo, como el contenido del elemento `<template>` nativo), la plantilla estará sujeta al comportamiento de análisis de HTML nativo del navegador. En tales casos, deberá usar `kebab-case` y etiquetas de cierre explícitas para los componentes:
+Si estás creando las plantillas directamente en el DOM (por ejemplo, como el contenido del elemento `<template>` nativo), la plantilla estará sujeta al comportamiento de análisis de HTML nativo del navegador. En tales casos, tendrás que usar `kebab-case` y etiquetas de cierre explícitas para los componentes:
   
 ```vue-html
 <!-- if this template is written in the DOM -->
@@ -174,12 +174,13 @@ Si estás creando las plantillas directamente en el DOM (por ejemplo, como el co
 ```
 
 See [DOM template parsing caveats](#dom-template-parsing-caveats) for more details.
+Ver las advertencias de [análisis de plantillas DOM](#advertencias-del-analisis-de-plantilla-dom) para saber más detalles.
 
-## Passing Props
+## Pasar las Props
 
-Si estamos creando un blog, es probable que necesitemos un componente que represente una publicación de blog. Queremos que todas las publicaciones del blog compartan el mismo diseño visual, pero con contenido diferente. Dicho componente no será útil a menos que pueda pasarle datos, como el título y el contenido de la publicación específica que queremos mostrar. Ahí es donde entran los props.
+Si estamos creando un blog, es probable que necesitemos un componente que represente una publicación en el blog. Querremos que todas las publicaciones del blog compartan el mismo diseño visual, pero con contenido diferente. Dicho componente no será útil a menos que podamos pasarle datos, como el título y el contenido de la publicación específica que queremos mostrar. Ahí es donde entran los props.
 
-Los props son atributos personalizados que puede registrarse en un componente. Para pasar un título a nuestro componente para una publicación del blog, debemos declararlo en la lista de props que acepta este componente, utilizando <span class="options-api">[`props`](/api/options-state.html# props) opción</span><span class="composition-api">[`defineProps`](/api/sfc-script-setup.html#defineprops-defineemits) macro</span>:
+Los props son atributos personalizados que pueden registrarse en un componente. Para pasar un título a nuestro componente para una publicación del blog, debemos declararlo en la lista de props que acepta este componente, utilizando <span class="options-api">[`props`](/api/options-state.html# props) option</span><span class="composition-api">[`defineProps`](/api/sfc-script-setup.html#defineprops-defineemits) macro</span>:
 
 <div class="options-api">
 
@@ -196,7 +197,7 @@ export default {
 </template>
 ```
 
-Cuando se pasa un valor a un prop, se convierte en una propiedad en esa instancia del componente. Se puede acceder al valor de esa propiedad dentro de la plantilla y en el contexto `this` del componente, al igual que cualquier otra propiedad del componente.
+Cuando se pasa un valor a un prop, se convierte en una propiedad en esa instancia del componente. Se puede acceder al valor de esa propiedad, dentro de la plantilla y en el contexto `this` del componente, al igual que cualquier otra propiedad del componente.
 
 </div>
 <div class="composition-api">
@@ -236,7 +237,7 @@ export default {
 
 Un componente puede tener tantos props como queramos y, de forma predeterminada, se puede pasar cualquier valor a cualquier prop.
 
-Una vez que se registra un prop, se le pueden pasar datos como atributo personalizado, como en este ejemplo:
+Una vez que se registra un prop, se le pueden pasar datos como atributos personalizado, igual que en este ejemplo:
 
 ```vue-html
 <BlogPost title="Mi día a día con Vue" />
@@ -254,9 +255,9 @@ export default {
   data() {
     return {
       posts: [
-        { id: 1, title: 'My journey with Vue' },
-        { id: 2, title: 'Blogging with Vue' },
-        { id: 3, title: 'Why Vue is so fun' }
+        { id: 1, title: 'Mi día a día con Vue' },
+        { id: 2, title: 'Blogueando con Vue' },
+        { id: 3, title: 'Por qué Vue es tan divertido' }
       ]
     }
   }
@@ -268,9 +269,9 @@ export default {
 
 ```js
 const posts = ref([
-  { id: 1, title: 'My journey with Vue' },
-  { id: 2, title: 'Blogging with Vue' },
-  { id: 3, title: 'Why Vue is so fun' }
+  { id: 1, title: 'Mi día a día con Vue' },
+  { id: 2, title: 'Blogueando con Vue' },
+  { id: 3, title: 'Por qué Vue es tan divertido' }
 ])
 ```
 
@@ -288,7 +289,7 @@ Entonces, para representar un componente para cada elemento, usaremos `v-for`:
 
 <div class="options-api">
 
-[Try it in the Playground](https://sfc.vuejs.org/#eyJBcHAudnVlIjoiPHNjcmlwdD5cbmltcG9ydCBCbG9nUG9zdCBmcm9tICcuL0Jsb2dQb3N0LnZ1ZSdcbiAgXG5leHBvcnQgZGVmYXVsdCB7XG4gIGNvbXBvbmVudHM6IHtcbiAgICBCbG9nUG9zdFxuICB9LFxuICBkYXRhKCkge1xuICAgIHJldHVybiB7XG4gICAgICBwb3N0czogW1xuICAgICAgICB7IGlkOiAxLCB0aXRsZTogJ015IGpvdXJuZXkgd2l0aCBWdWUnIH0sXG4gICAgICAgIHsgaWQ6IDIsIHRpdGxlOiAnQmxvZ2dpbmcgd2l0aCBWdWUnIH0sXG4gICAgICAgIHsgaWQ6IDMsIHRpdGxlOiAnV2h5IFZ1ZSBpcyBzbyBmdW4nIH1cbiAgICAgIF1cbiAgICB9XG4gIH1cbn1cbjwvc2NyaXB0PlxuXG48dGVtcGxhdGU+XG5cdDxCbG9nUG9zdFxuICBcdHYtZm9yPVwicG9zdCBpbiBwb3N0c1wiXG5cdCAgOmtleT1cInBvc3QuaWRcIlxuICBcdDp0aXRsZT1cInBvc3QudGl0bGVcIlxuXHQ+PC9CbG9nUG9zdD5cbjwvdGVtcGxhdGU+IiwiaW1wb3J0LW1hcC5qc29uIjoie1xuICBcImltcG9ydHNcIjoge1xuICAgIFwidnVlXCI6IFwiaHR0cHM6Ly9zZmMudnVlanMub3JnL3Z1ZS5ydW50aW1lLmVzbS1icm93c2VyLmpzXCJcbiAgfVxufSIsIkJsb2dQb3N0LnZ1ZSI6IjxzY3JpcHQ+XG5leHBvcnQgZGVmYXVsdCB7XG4gIHByb3BzOiBbJ3RpdGxlJ11cbn1cbjwvc2NyaXB0PlxuXG48dGVtcGxhdGU+XG4gIDxoND57eyB0aXRsZSB9fTwvaDQ+XG48L3RlbXBsYXRlPiJ9)
+[Probar en la zona de práctica](https://sfc.vuejs.org/#eyJBcHAudnVlIjoiPHNjcmlwdD5cbmltcG9ydCBCbG9nUG9zdCBmcm9tICcuL0Jsb2dQb3N0LnZ1ZSdcbiAgXG5leHBvcnQgZGVmYXVsdCB7XG4gIGNvbXBvbmVudHM6IHtcbiAgICBCbG9nUG9zdFxuICB9LFxuICBkYXRhKCkge1xuICAgIHJldHVybiB7XG4gICAgICBwb3N0czogW1xuICAgICAgICB7IGlkOiAxLCB0aXRsZTogJ015IGpvdXJuZXkgd2l0aCBWdWUnIH0sXG4gICAgICAgIHsgaWQ6IDIsIHRpdGxlOiAnQmxvZ2dpbmcgd2l0aCBWdWUnIH0sXG4gICAgICAgIHsgaWQ6IDMsIHRpdGxlOiAnV2h5IFZ1ZSBpcyBzbyBmdW4nIH1cbiAgICAgIF1cbiAgICB9XG4gIH1cbn1cbjwvc2NyaXB0PlxuXG48dGVtcGxhdGU+XG5cdDxCbG9nUG9zdFxuICBcdHYtZm9yPVwicG9zdCBpbiBwb3N0c1wiXG5cdCAgOmtleT1cInBvc3QuaWRcIlxuICBcdDp0aXRsZT1cInBvc3QudGl0bGVcIlxuXHQ+PC9CbG9nUG9zdD5cbjwvdGVtcGxhdGU+IiwiaW1wb3J0LW1hcC5qc29uIjoie1xuICBcImltcG9ydHNcIjoge1xuICAgIFwidnVlXCI6IFwiaHR0cHM6Ly9zZmMudnVlanMub3JnL3Z1ZS5ydW50aW1lLmVzbS1icm93c2VyLmpzXCJcbiAgfVxufSIsIkJsb2dQb3N0LnZ1ZSI6IjxzY3JpcHQ+XG5leHBvcnQgZGVmYXVsdCB7XG4gIHByb3BzOiBbJ3RpdGxlJ11cbn1cbjwvc2NyaXB0PlxuXG48dGVtcGxhdGU+XG4gIDxoND57eyB0aXRsZSB9fTwvaDQ+XG48L3RlbXBsYXRlPiJ9)
 
 </div>
 <div class="composition-api">
@@ -297,7 +298,7 @@ Entonces, para representar un componente para cada elemento, usaremos `v-for`:
 
 </div>
 
-También vemos cómo podemos usar `v-bind` (o su escritura abreviada ":") para pasar props dinámicos. Esto es muy útil cuando no sabe con antelación el contenido exacto que se va a mostrar.
+También vemos cómo podemos usar `v-bind` (o su escritura abreviada de dos puntos) para pasar props dinámicos. Esto es muy útil cuando no sabemos con antelación el contenido exacto que se va a mostrar.
 
 Eso es todo lo que necesitas saber sobre los props por ahora, pero una vez que termines de leer esta página y hayas asimilado su contenido, te recomendamos que leas la guía completa sobre [Props](/guide/components/props.html ).
 
