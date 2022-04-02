@@ -418,7 +418,7 @@ defineEmits(['enlarge-text'])
 
 </div>
 
-Esto documenta todos los eventos que emite un componente y, opcionalmente, [los valida] (/guide/components/events.html#events-validation). También permite que Vue evite aplicarlos implícitamente como oyentes nativos al elemento raíz del componente secundario.
+Esto documenta todos los eventos que emite un componente y, opcionalmente, [los valida](/guide/components/events.html#events-validation). También permite que Vue evite aplicarlos implícitamente como oyentes nativos al elemento raíz del componente secundario.
 
 <div class="composition-api">
 
@@ -430,7 +430,7 @@ const emit = defineEmits(['enlarge-text'])
 emit('enlarge-text')
 ```
 
-See also: [Typing Component Emits](/guide/typescript/composition-api.html#typing-component-emits) <sup class="vt-badge ts" />
+Ver también: [Typing Component Emits](/guide/typescript/composition-api.html#typing-component-emits) <sup class="vt-badge ts" />
 
 If you are not using `<script setup>`, you can declare emitted events using the `emits` option. You can access the `emit` function as a property of the setup context (passed to `setup()` as the second argument):
 
@@ -445,11 +445,11 @@ export default {
 
 </div>
 
-Eso es todo lo que necesitas saber sobre los eventos de componentes personalizados por ahora, pero una vez que hayas terminado de leer esta parte y se sientas cómodo con su contenido, te recomendamos que leas la guía completa sobre [Eventos personalizados](/guide/components/events).
+Es todo lo que necesitas saber sobre los eventos de componentes personalizados por ahora, pero una vez que hayas terminado de leer esta parte y se sientas cómodo con su contenido, te recomendamos que leas la guía completa sobre [Eventos personalizados](/guide/components/events).
 
-## Content Distribution with Slots
+## Distribución del contenido con Slots
 
-Just like with HTML elements, it's often useful to be able to pass content to a component, like this:
+Al igual que con los elementos HTML, a menudo es útil poder pasar contenido a un componente, como este:
 
 ```vue-html
 <AlertBox>
@@ -457,13 +457,13 @@ Just like with HTML elements, it's often useful to be able to pass content to a 
 </AlertBox>
 ```
 
-Which might render something like:
+Que podría representar algo tipo:
 
-:::danger This is an Error for Demo Purposes
-Something bad happened.
+:::danger Este es un error con fines de demostración
+Algo malo ha pasado.
 :::
 
-This can be achieved using Vue's custom `<slot>` element:
+Esto se puede lograr usando el elemento personalizado de Vue `<slot>`:
 
 ```vue{4}
 <template>
@@ -480,7 +480,7 @@ This can be achieved using Vue's custom `<slot>` element:
 </style>
 ```
 
-As you'll see above, we use the `<slot>` as a placeholder where we want the content to go – and that's it. We're done!
+Como verás arriba, usamos `<slot>` como marcador de posición donde queremos que vaya el contenido, y eso es todo. ¡Hemos terminado!
 
 <div class="options-api">
 
@@ -493,11 +493,11 @@ As you'll see above, we use the `<slot>` as a placeholder where we want the cont
 
 </div>
 
-That's all you need to know about slots for now, but once you've finished reading this page and feel comfortable with its content, we recommend coming back later to read the full guide on [Slots](/guide/components/slots).
+Es todo lo que necesitas saber sobre slots por ahora, pero una vez que haya terminado de leer este contenido y te sientas cómodo con el, te recomendamos que leas la guía completa sobre [Slots](/guide/components/slots).
 
-## Dynamic Components
+## Componentes dinámicos
 
-Sometimes, it's useful to dynamically switch between components, like in a tabbed interface:
+A veces, es útil cambiar dinámicamente entre componentes, como en una interfaz con pestañas:
 
 <div class="options-api">
 
@@ -510,7 +510,7 @@ Sometimes, it's useful to dynamically switch between components, like in a tabbe
 
 </div>
 
-The above is made possible by Vue's `<component>` element with the special `is` attribute:
+Lo anterior es posible gracias al elemento `<component>` de Vue con el atributo especial `is`:
 
 <div class="options-api">
 
@@ -529,30 +529,30 @@ The above is made possible by Vue's `<component>` element with the special `is` 
 
 </div>
 
-In the example above, the value passed to `:is` can contain either:
+En el ejemplo anterior, el valor pasado a `:is` puede contener:
 
-- the name string of a registered component, OR
-- the actual imported component object
+- la cadena del nombre de un componente registrado, O
+- el objeto literal importado como componente 
 
-You can also use the `is` attribute to create regular HTML elements.
+También se puede usar el atributo `is` para crear elementos HTML regulares.
 
-When switching between multiple components with `<component :is="...">`, a component will be unmounted when it is switched away from. We can force the inactive components to stay "alive" with the built-in [`<KeepAlive>` component](/guide/built-ins/keep-alive.html).
+Al cambiar entre varios componentes con `<component :is="...">`, un componente se desmontará cuando desaparezca. Podemos obligar a los componentes inactivos a permanecer "vivos" utilizando [el componente `<KeepAlive>`](/guide/built-ins/keep-alive.html).
 
-## DOM Template Parsing Caveats
+## Advertencias del análisis de plantilla DOM
 
-If you are writing your Vue templates directly in the DOM, Vue will have to retrieve the template string from the DOM. This leads to some caveats due to browsers' native HTML parsing behavior.
+Si escribes las plantillas de Vue directamente en el DOM, Vue tendrá que recuperar la cadena de plantilla del DOM. Esto conduce a algunas advertencias debido al comportamiento de análisis de HTML nativo de los navegadores.
 
 :::tip
-It should be noted that the limitations discussed below only apply if you are writing your templates directly in the DOM. They do NOT apply if you are using string templates from the following sources:
+Cabe señalar que las limitaciones que se analizan a continuación solo se aplican al escribir las plantillas directamente en el DOM. NO se aplican si se están utilizando plantillas de cadena de las siguientes fuentes:
 
-- Single-File Components
-- Inlined template strings (e.g. `template: '...'`)
+- Components de archivo único 
+- Cadenas de plantilla en línea (e.g. `template: '...'`)
 - `<script type="text/x-template">`
   :::
 
-### Case Insensitivity
+### Indistiguibilidad entre mayúsculas y minúsculas
 
-HTML tags and attribute names are case-insensitive, so browsers will interpret any uppercase characters as lowercase. That means when you’re using in-DOM templates, PascalCase component names and camelCased prop names or `v-on` event names all need to use their kebab-cased (hyphen-delimited) equivalents:
+Las etiquetas HTML y los nombres de atributos no distinguen entre mayúsculas y minúsculas, por lo que los navegadores interpretarán cualquier carácter en mayúsculas como minúsculas. Eso significa que cuando se usan plantillas DOM, los nombres de los componentes en PascalCase y los nombres de accesorios en camelCased o los nombres de eventos `v-on` deben usar sus equivalentes kebab-cased (delimitados por guiones):
 
 ```js
 // camelCase in JavaScript
@@ -570,30 +570,30 @@ const BlogPost = {
 <blog-post post-title="hello!" @update-post="onUpdatePost"></blog-post>
 ```
 
-### Self Closing Tags
+### Etiquetas con el cierre incluido
 
-We have been using self-closing tags for components in previous code samples:
+Ya hemos estado usando etiquetas con su propio cierre en componentes de ejemplos de código anteriores:
 
 ```vue-html
 <MyComponent />
 ```
 
-This is because Vue's template parser respects `/>` as an indication to end any tag, regardless of its type.
+Esto se debe a que el analizador de plantillas de Vue respeta `/>` como una indicación para finalizar cualquier etiqueta, independientemente de su tipo.
 
-In DOM templates, however, we must always include explicit closing tags:
+En las plantillas DOM, sin embargo, siempre debemos incluir etiquetas de cierre explícitas:
 
 ```vue-html
 <my-component></my-component>
 ```
 
-This is because the HTML spec only allows [a few specific elements](https://html.spec.whatwg.org/multipage/syntax.html#void-elements) to omit closing tags, the most common being `<input>` and `<img>`. For all other elements, if you omit the closing tag, the native HTML parser will think you never terminated the opening tag. For example, the following snippet:
+Esto se debe a que la especificación HTML solo permite [algunos elementos específicos](https://html.spec.whatwg.org/multipage/syntax.html#void-elements) en los que poder omitir etiquetas de cierre, siendo las más comunes `<input> ` y `<img>`. Para todos los demás elementos, si omite la etiqueta de cierre, el analizador HTML nativo pensará que nunca finalizó la etiqueta de apertura. Por ejemplo, el siguiente fragmento:
 
 ```vue-html
 <my-component /> <!-- we intend to close the tag here... -->
 <span>hello</span>
 ```
 
-will be parsed as:
+Será interpretado como:
 
 ```vue-html
 <my-component>
@@ -601,19 +601,18 @@ will be parsed as:
 </my-component> <!-- but the browser will close it here. -->
 ```
 
-### Element Placement Restrictions
+### Restricciones de colocación de elementos
 
-Some HTML elements, such as `<ul>`, `<ol>`, `<table>` and `<select>` have restrictions on what elements can appear inside them, and some elements such as `<li>`, `<tr>`, and `<option>` can only appear inside certain other elements.
+Algunos elementos HTML, como `<ul>`, `<ol>`, `<table>` y `<select>` tienen restricciones sobre qué elementos pueden aparecer dentro de ellos, y algunos elementos como `<li>`, `<tr>` y `<option>` solo pueden aparecer dentro de ciertos otros elementos.
 
-This will lead to issues when using components with elements that have such restrictions. For example:
+Esto generará problemas al usar componentes con elementos que tengan tales restricciones. Por ejemplo:
 
 ```vue-html
 <table>
   <blog-post-row></blog-post-row>
 </table>
 ```
-
-The custom component `<blog-post-row>` will be hoisted out as invalid content, causing errors in the eventual rendered output. We can use the special [`is` attribute](/api/built-in-special-attributes.html#is) as a workaround:
+El componente personalizado `<blog-post-row>` se eliminará como contenido no válido, lo que provocará errores en la salida renderizada final. Podemos usar el atributo especial [`is`](/api/built-in-special-attributes.html#is) como solución alternativa:
 
 ```vue-html
 <table>
@@ -622,9 +621,9 @@ The custom component `<blog-post-row>` will be hoisted out as invalid content, c
 ```
 
 :::tip
-When used on native HTML elements, the value of `is` must be prefixed with `vue:` in order to be interpreted as a Vue component. This is required to avoid confusion with native [customized built-in elements](https://html.spec.whatwg.org/multipage/custom-elements.html#custom-elements-customized-builtin-example).
+Cuando se usa en elementos HTML nativos, el valor de `is` debe tener el prefijo `vue:` para que se interprete como un componente de Vue. Esto es necesario para evitar confusiones con elementos [nativos integrados personalizados](https://html.spec.whatwg.org/multipage/custom-elements.html#custom-elements-customized-builtin-example).
 :::
 
-That's all you need to know about DOM template parsing caveats for now - and actually, the end of Vue's _Essentials_. Congratulations! There's still more to learn, but first, we recommend taking a break to play with Vue yourself - build something fun, or check out some of the [Examples](/examples/) if you haven't already.
+Eso es todo lo que necesitas saber sobre las advertencias del análisis de plantillas DOM por ahora y, además, es el final de _Essentials_ de Vue. ¡Felicidades! Todavía quedan muchas cosas que aprender pero, primero, le recomendamos que se tome un descanso para practicar con Vue por tu cuenta: trata de disfrutar construyendo algo o consulta los [Ejemplos](/examples/) si aún no lo has hecho.
 
-Once you feel comfortable with the knowledge you've just digested, move on with the guide to learn more about components in depth.
+Una vez que se veas cómodo con el conocimiento que acabas de digerir, sigue con la guía para obtener más información sobre los componentes.
