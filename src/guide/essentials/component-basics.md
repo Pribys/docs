@@ -1,4 +1,4 @@
-# Components Basics
+# Lo básico sobre componentes
 
 Los componentes nos permiten dividir la interfaz de usuario en piezas independientes y reutilizables, y pensar en cada pieza de forma aislada. Es común que una aplicación se organice en un árbol de componentes anidados:
 
@@ -303,9 +303,9 @@ Eso es todo lo que necesitas saber sobre los props por ahora, pero una vez que t
 
 ## Escuchar eventos
 
-As we develop our `<BlogPost>` component, some features may require communicating back up to the parent. For example, we may decide to include an accessibility feature to enlarge the text of blog posts, while leaving the rest of the page at its default size.
+A medida que desarrollamos nuestro componente `<BlogPost>`, es posible que algunas características requieran comunicarse con el componente padre. Por ejemplo, podríamos decidir incluir una función que permita ampliar el texto de las publicaciones del blog y dejar el resto de la página en su tamaño predeterminado.
 
-In the parent, we can support this feature by adding a `postFontSize` <span class="options-api">data property</span><span class="composition-api">ref</span>:
+En el componente padre, podemos dar soporte a esta característica agregando una <span class="options-api">data property</span><span class="composition-api">ref</span> `postFontSize`:
 
 <div class="options-api">
 
@@ -333,7 +333,7 @@ const postFontSize = ref(1)
 
 </div>
 
-Which can be used in the template to control the font size of all blog posts:
+Que se puede usar en la plantilla para controlar el tamaño de fuente de todas las publicaciones del blog:
 
 ```vue-html{1,7}
 <div :style="{ fontSize: postFontSize + 'em' }">
@@ -345,7 +345,7 @@ Which can be used in the template to control the font size of all blog posts:
 </div>
 ```
 
-Now let's add a button to the `<BlogPost>` component's template:
+Ahora agreguemos un botón a la plantilla del componente `<BlogPost>`:
 
 ```vue{5}
 <!-- BlogPost.vue, omitting <script> -->
@@ -357,7 +357,7 @@ Now let's add a button to the `<BlogPost>` component's template:
 </template>
 ```
 
-The button currently doesn't do anything yet - we want clicking the button to communicate to the parent that it should enlarge the text of all posts. To solve this problem, component instances provide a custom events system. The parent can choose to listen to any event on the child component instance with `v-on` or `@`, just as we would with a native DOM event:
+De momento, el botón no hace nada: queremos hacer clic en el botón para comunicarle al padre que debe ampliar el texto de todas las publicaciones. Para resolver este problema, las instancias de componentes proporcionan un sistema de eventos personalizado. El padre puede escuchar cualquier evento en la instancia del componente hijo con `v-on` o `@`, tal como lo haríamos con un evento DOM nativo:
 
 ```vue-html{3}
 <BlogPost
@@ -366,7 +366,7 @@ The button currently doesn't do anything yet - we want clicking the button to co
  />
 ```
 
-Then the child component can emit an event on itself by calling the built-in [**`$emit`** method](/api/component-instance.html#emit), passing the name of the event:
+Luego, el componente hijo puede emitir un evento sobre sí mismo llamando al [**`$emit`** method](/api/component-instance.html#emit) integrado, pasando el nombre del evento:
 
 ```vue{5}
 <!-- BlogPost.vue, omitting <script> -->
@@ -378,7 +378,7 @@ Then the child component can emit an event on itself by calling the built-in [**
 </template>
 ```
 
-Thanks to the `@enlarge-text="postFontSize += 0.1"` listener, the parent will receive the event and update the value of `postFontSize`.
+Gracias al oyente `@enlarge-text="postFontSize += 0.1"`, el padre recibirá el evento y actualizará el valor de `postFontSize`.
 
 <div class="options-api">
 
@@ -391,7 +391,7 @@ Thanks to the `@enlarge-text="postFontSize += 0.1"` listener, the parent will re
 
 </div>
 
-We can optionally declare emitted events using the <span class="options-api">[`emits`](/api/options-state.html#emits) option</span><span class="composition-api">[`defineEmits`](/api/sfc-script-setup.html#defineprops-defineemits) macro</span>:
+También podemos declarar la emisión de eventos usando la opción <span class="options-api">[`emits`](/api/options-state.html#emits)</span><span class="composition-api"> [`defineEmits`](/api/sfc-script-setup.html#defineprops-defineemits) macro</span>:
 
 <div class="options-api">
 
@@ -418,7 +418,7 @@ defineEmits(['enlarge-text'])
 
 </div>
 
-This documents all the events that a component emits and optionally [validates them](/guide/components/events.html#events-validation). It also allows Vue to avoid implicitly applying them as native listeners to the child component's root element.
+Esto documenta todos los eventos que emite un componente y, opcionalmente, [los valida] (/guide/components/events.html#events-validation). También permite que Vue evite aplicarlos implícitamente como oyentes nativos al elemento raíz del componente secundario.
 
 <div class="composition-api">
 
@@ -445,7 +445,7 @@ export default {
 
 </div>
 
-That's all you need to know about custom component events for now, but once you've finished reading this page and feel comfortable with its content, we recommend coming back later to read the full guide on [Custom Events](/guide/components/events).
+Eso es todo lo que necesitas saber sobre los eventos de componentes personalizados por ahora, pero una vez que hayas terminado de leer esta parte y se sientas cómodo con su contenido, te recomendamos que leas la guía completa sobre [Eventos personalizados](/guide/components/events).
 
 ## Content Distribution with Slots
 
