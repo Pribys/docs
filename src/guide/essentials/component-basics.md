@@ -177,9 +177,9 @@ See [DOM template parsing caveats](#dom-template-parsing-caveats) for more detai
 
 ## Passing Props
 
-If we are building a blog, we will likely need a component representing a blog post. We want all the blog posts to share the same visual layout, but with different content. Such a component won't be useful unless you can pass data to it, such as the title and content of the specific post we want to display. That's where props come in.
+Si estamos creando un blog, es probable que necesitemos un componente que represente una publicación de blog. Queremos que todas las publicaciones del blog compartan el mismo diseño visual, pero con contenido diferente. Dicho componente no será útil a menos que pueda pasarle datos, como el título y el contenido de la publicación específica que queremos mostrar. Ahí es donde entran los props.
 
-Props are custom attributes you can register on a component. To pass a title to our blog post component, we must declare it in the list of props this component accepts, using the <span class="options-api">[`props`](/api/options-state.html#props) option</span><span class="composition-api">[`defineProps`](/api/sfc-script-setup.html#defineprops-defineemits) macro</span>:
+Los props son atributos personalizados que puede registrarse en un componente. Para pasar un título a nuestro componente para una publicación del blog, debemos declararlo en la lista de props que acepta este componente, utilizando <span class="options-api">[`props`](/api/options-state.html# props) opción</span><span class="composition-api">[`defineProps`](/api/sfc-script-setup.html#defineprops-defineemits) macro</span>:
 
 <div class="options-api">
 
@@ -196,7 +196,7 @@ export default {
 </template>
 ```
 
-When a value is passed to a prop attribute, it becomes a property on that component instance. The value of that property is accessible within the template and on the component's `this` context, just like any other component property.
+Cuando se pasa un valor a un prop, se convierte en una propiedad en esa instancia del componente. Se puede acceder al valor de esa propiedad dentro de la plantilla y en el contexto `this` del componente, al igual que cualquier otra propiedad del componente.
 
 </div>
 <div class="composition-api">
@@ -234,17 +234,17 @@ export default {
 
 </div>
 
-A component can have as many props as you like and, by default, any value can be passed to any prop.
+Un componente puede tener tantos props como queramos y, de forma predeterminada, se puede pasar cualquier valor a cualquier prop.
 
-Once a prop is registered, you can pass data to it as a custom attribute, like this:
+Una vez que se registra un prop, se le pueden pasar datos como atributo personalizado, como en este ejemplo:
 
 ```vue-html
-<BlogPost title="My journey with Vue" />
-<BlogPost title="Blogging with Vue" />
-<BlogPost title="Why Vue is so fun" />
+<BlogPost title="Mi día a día con Vue" />
+<BlogPost title="Blogueando con Vue" />
+<BlogPost title="Por qué Vue es tan divertido" />
 ```
 
-In a typical app, however, you'll likely have an array of posts in your parent component:
+Sin embargo, en una aplicación típica, lo habitual será utilizar una matriz para el componente principal:
 
 <div class="options-api">
 
@@ -276,7 +276,7 @@ const posts = ref([
 
 </div>
 
-Then want to render a component for each one, using `v-for`:
+Entonces, para representar un componente para cada elemento, usaremos `v-for`:
 
 ```vue-html
 <BlogPost
@@ -297,11 +297,11 @@ Then want to render a component for each one, using `v-for`:
 
 </div>
 
-Notice how we can use `v-bind` to pass dynamic props. This is especially useful when you don't know the exact content you're going to render ahead of time.
+También vemos cómo podemos usar `v-bind` (o su escritura abreviada ":") para pasar props dinámicos. Esto es muy útil cuando no sabe con antelación el contenido exacto que se va a mostrar.
 
-That's all you need to know about props for now, but once you've finished reading this page and feel comfortable with its content, we recommend coming back later to read the full guide on [Props](/guide/components/props.html).
+Eso es todo lo que necesitas saber sobre los props por ahora, pero una vez que termines de leer esta página y hayas asimilado su contenido, te recomendamos que leas la guía completa sobre [Props](/guide/components/props.html ).
 
-## Listening to Events
+## Escuchar eventos
 
 As we develop our `<BlogPost>` component, some features may require communicating back up to the parent. For example, we may decide to include an accessibility feature to enlarge the text of blog posts, while leaving the rest of the page at its default size.
 
