@@ -93,7 +93,7 @@ El ejemplo anterior define un solo componente y lo exporta de modo predeterminad
 ## Utilizar un componente
 
 :::tip
-Usaremos la sintaxis SFC para el resto de la guía: los conceptos sobre los componentes son los mismos independientemente de si la utilizamos o no. La sección [Ejemplos](/ejemplos/) muestra el uso de componentes en ambos escenarios.
+Usaremos la sintaxis SFC para el resto de la guía: los conceptos sobre los componentes son los mismos independientemente de si la utilizamos o no. La sección [Ejemplos](/examples/) muestra el uso de componentes en ambos escenarios.
 :::
 
 Para usar un componente secundario, debemos importarlo en el componente principal. Suponiendo que tenemos nuestro componente *contador* dentro de un archivo llamado `ButtonCounter.vue`, debemos colocar este dentro del *export default* del archivo del componente principal:
