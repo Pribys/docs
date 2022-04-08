@@ -33,7 +33,7 @@ import MiComponente from './App.vue'
 app.component('MiComponente', MiComponente)
 ```
 
-The método `app.component()` se puede encadenar:
+El método `app.component()` se puede encadenar:
 
 ```js
 app
