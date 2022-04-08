@@ -370,10 +370,6 @@ Cuando los objetos y las matrices se pasan como props, aunque que el componente 
 El principal inconveniente de tales mutaciones es que permite que el componente secundario afecte el estado principal de una manera que no es obvia para este, lo que podría dificultar el razonamiento sobre el flujo de datos en el futuro. Como práctica recomendada, debe evitar este tipo de mutaciones a menos que el padre y el hijo estén estrechamente acoplados por diseño. En la mayoría de los casos, el hijo debería [emitir un evento](/guide/components/events.html) para permitir que el padre realice la mutación.
 
 ## Validación de props
-
-Components can specify requirements for their props, such as the types you've already seen. If a requirement is not met, Vue will warn you in the browser's JavaScript console. This is especially useful when developing a component that is intended to be used by others.
-
-To specify prop validations, you can provide an object with validation requirements to the <span class="composition-api">`defineProps()` macro</span><span class="options-api">`props` option</span>, instead of an array of strings. For example:
   
 Los componentes pueden especificar requisitos para sus props, como los tipos, que ya hemos visto. Si no se cumple un requisito, Vue le avisará por la consola JavaScript del navegador. Esto es especialmente útil cuando se desarrolla un componente destinado a ser utilizado por otros.
 
