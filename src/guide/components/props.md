@@ -305,7 +305,7 @@ export default {
 
 Por lo general, hay dos casos en los que es tentador mutar un prop:
 
-1. **El prop se usa para pasar un valor inicial; el componente secundario lo usará posteriormente como una propiedad local. ** En este caso, es mejor definir una propiedad local que use el prop como su valor inicial:
+1. **El prop se usa para pasar un valor inicial; el componente secundario lo usará posteriormente como una propiedad local.** En este caso, es mejor definir una propiedad local que use el prop como su valor inicial:
 
    <div class="composition-api">
 
@@ -335,7 +335,6 @@ Por lo general, hay dos casos en los que es tentador mutar un prop:
 
    </div>
 
-2. **The prop is passed in as a raw value that needs to be transformed.** In this case, it's best to define a computed property using the prop's value:
 2. **La propiedad se pasa como un valor sin formato que debe transformarse.** En este caso, es mejor definir una propiedad computada usando el valor del prop:
 
    <div class="composition-api">
