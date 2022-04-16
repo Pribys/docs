@@ -335,3 +335,30 @@ Por lo general, hay dos casos en los que es tentador mutar un prop:
 
    </div>
 
+2. **La propiedad se pasa como un valor sin formato que debe transformarse.** En este caso, es mejor definir una propiedad computada usando el valor del prop:
+
+   <div class="composition-api">
+
+   ```js
+   const props = defineProps(['size'])
+
+   // propiedad computada que se actualiza automáticamente cuando cambia el prop
+   const normalizedSize = computed(() => props.size.trim().toLowerCase())
+   ```
+
+   </div>
+   <div class="options-api">
+
+   ```js
+   export default {
+     props: ['size'],
+     computed: {
+       // propiedad computada que se actualiza automáticamente cuando cambia el prop
+       normalizedSize() {
+         return this.size.trim().toLowerCase()
+       }
+     }
+   }
+   ```
+
+   </div>
