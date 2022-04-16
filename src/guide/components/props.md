@@ -413,8 +413,8 @@ defineProps({
   // Función con un valor por defecto
   propG: {
     type: Function,
-    // A diferencia de los valores predeterminados de objeto o matriz, esta no es una función factory; es una función que sirve 
-  como valor predeterminado
+    // A diferencia de los valores predeterminados de objeto o matriz, esta no es una función factory; 
+    // es una función que sirve como valor predeterminado
     default() {
       return 'Default function'
     }
@@ -469,8 +469,8 @@ export default {
     // Función con un valor por defecto
     propG: {
       type: Function,
-      // Unlike object or array default, this is not a factory function - this is a function to serve as a default value
-      // A diferencia de los valores predeterminados de objeto o matriz, esta no es una función factory; es una función que sirve como valor predeterminado
+      // A diferencia de los valores predeterminados de objeto o matriz, esta no es una función factory; 
+      // es una función que sirve como valor predeterminado
       default() {
         return 'Default function'
       }
