@@ -362,3 +362,67 @@ Por lo general, hay dos casos en los que es tentador mutar un prop:
    ```
 
    </div>
+
+  ### Mutar objetos/matrices Props
+  
+Cuando los objetos y las matrices se pasan como props, aunque que el componente secundario no puede mutar el enlace de la propiedad, si **podrá** mutar las propiedades anidadas del objeto o la matriz. Esto se debe a que en JavaScript los objetos y las matrices se pasan por referencia, y es excesivamente costoso para Vue evitar tales mutaciones.
+
+El principal inconveniente de tales mutaciones es que permite que el componente secundario afecte el estado principal de una manera que no es obvia para este, lo que podría dificultar el razonamiento sobre el flujo de datos en el futuro. Como práctica recomendada, debe evitar este tipo de mutaciones a menos que el padre y el hijo estén estrechamente acoplados por diseño. En la mayoría de los casos, el hijo debería [emitir un evento](/guide/components/events.html) para permitir que el padre realice la mutación.
+
+## Validación de props
+  
+Los componentes pueden especificar requisitos para sus props, como los tipos, que ya hemos visto. Si no se cumple un requisito, Vue avisará por la consola JavaScript del navegador. Esto es especialmente útil cuando se desarrolla un componente destinado a ser utilizado por otros.
+
+Para especificar validaciones de props, podemos proporcionar un objeto con requisitos de validación para la <span class="composition-api">macro`defineProps()`</span><span class="options-api">opción`props`< /span>, en lugar de una matriz. Por ejemplo:
+
+<div class="composition-api">
+
+```js
+defineProps({
+  // Comprobación de tipo básico:
+  // (valores `null` y `undefined` admiten cualquier tipo)
+  propA: Number,
+  // Múltiples tipos posibles
+  propB: [String, Number],
+  // Requerido string
+  propC: {
+    type: String,
+    required: true
+  },
+  // Number con valor por defecto
+  propD: {
+    type: Number,
+    default: 100
+  },
+  // Object con valor por defecto
+  propE: {
+    type: Object,
+    // Por defecto, se devuelve un objeto o matriz de
+    // una función factory
+    default() {
+      return { message: 'hola' }
+    }
+  },
+  // Función de validación personalizada
+  propF: {
+    validator(value) {
+      // El valor debe coincidir con una de estas cadenas
+      return ['success', 'warning', 'danger'].includes(value)
+    }
+  },
+  // Función con un valor por defecto
+  propG: {
+    type: Function,
+    // A diferencia de los valores predeterminados de objeto o matriz, esta no es una función factory; es una función que sirve como valor predeterminado
+    default() {
+      return 'Default function'
+    }
+  }
+})
+```
+
+:::tip
+El código dentro del argumento `defineProps()` **no puede acceder a otras variables declaradas en `<script setup>`**, porque la expresión completa se mueve a un ámbito de función externo cuando se compila.
+:::
+
+</div>
