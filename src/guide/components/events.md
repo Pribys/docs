@@ -1,74 +1,74 @@
-# Component Events
+# Eventos de componentes
 
-> This page assumes you've already read the [Components Basics](/guide/essentials/component-basics). Read that first if you are new to components.
+> Se supone que ya conoces lo tratado en [Lo básico sobre componentes](/guide/essentials/component-basics). Si eres novato, deberías leer primero esa sección.
 
 <div class="options-api">
   <VueSchoolLink href="https://vueschool.io/lessons/defining-custom-events-emits" title="Free Vue.js Lesson on Defining Custom Events"/>
 </div>
 
-## Emitting and Listening to Events
+## Emitir y escuchar eventos
 
-A component can emit custom events directly in template expressions (e.g. in a `v-on` handler) using the built-in `$emit` function:
+Un componente puede emitir eventos propios directamente en expresiones de plantilla (por ejemplo, en un controlador `v-on`) usando la función `$emit`:
 
 ```vue-html
-<!-- MyComponent -->
-<button @click="$emit('someEvent')">click me</button>
+<!-- MiComponente -->
+<button @click="$emit('algunEvento')">Pulsar</button>
 ```
 
 <div class="options-api">
 
-The `$emit()` function is also available on the component instance as `this.$emit()`.
+La función `$emit()` también está disponible en la instancia del componente como `this.$emit()`.
 
 </div>
 
-The parent can then listen to it using `v-on`:
+El componente padre puede escucharlo usando `v-on`:
 
 ```vue-html
-<MyComponent @some-event="callback" />
+<MiComponente @some-event="callback" />
 ```
 
 The `.once` modifier is also supported on component event listeners:
 
 ```vue-html
-<MyComponent @some-event.once="callback" />
+<MyComponent @algun-evento.once="callback" />
 ```
 
-Like components and props, event names provide an automatic case transformation. Notice we emitted a camelCase event, but can listen for it using a kebab-cased listener in the parent. As with [props casing](/guide/components/props.html#prop-name-casing), we recommend using kebab-cased event listeners in templates.
+Al igual que los componentes y props, los nombres de eventos proporcionan una transformación automática de tipografía. Debemos saber que si emitimos un evento camelCase, podemos escucharlo usando un oyente kebab-cased en el padre. Al igual que con [Distinción entre mayúsculas y minúsculas](/guide/components/props.html#detalles-en-la-declaracion-de-props),  en las plantillas recomendamos usar oyentes de eventos en formato kebab-case.
 
 :::tip
-Unlike native DOM events, component emitted events do **not** bubble. You can only listen to the events emitted by a direct child component.
+A diferencia de los eventos DOM nativos, los eventos emitidos por componentes **no** se propagan. Solo se puede escuchar los eventos emitidos por un componente secundario directo.
 :::
 
-## Event Arguments
+## Argumentos de un evento
 
-It's sometimes useful to emit a specific value with an event. For example, we may want the `<BlogPost>` component to be in charge of how much to enlarge the text by. In those cases, we can pass extra arguments to `$emit` to provide this value:
+A veces, es útil emitir un valor específico con un evento. Por ejemplo, podemos querer que el componente `<BlogPost>` se encargue de cuánto agrandar el texto. En esos casos, podemos pasar argumentos adicionales a `$emit` para proporcionar este valor:
 
 ```vue-html
-<button @click="$emit('increaseBy', 1)">
-  Increase by 1
+<button @click="$emit('incrementarEn', 1)">
+  Aumenta 1
 </button>
 ```
 
-Then, when we listen to the event in the parent, we can use an inline arrow function as the listener, which allows us to access the event argument:
+Luego, cuando escuchamos el evento en el componente padre, podemos usar una función de flecha como oyente, lo que nos permite acceder al argumento del evento:
 
 ```vue-html
-<MyButton @increase-by="(n) => count += n" />
+<MiBoton @incrementar-en="(n) => contador += n" />
 ```
 
-Or, if the event handler is a method:
+O, si el controlador del evento es un método:
 
 ```vue-html
-<MyButton @increase-by="increaseCount" />
+<MiBoton @incrementar-en="aumentarContador" />
 ```
 
-Then the value will be passed as the first parameter of that method:
+Así, el valor se pasará como el primer parámetro de ese método:
 
 <div class="options-api">
 
 ```js
 methods: {
-  increaseCount(n) {
-    this.count += n
+  aumentarContador(n) {
+    this.contador += n
   }
 }
 ```
@@ -77,15 +77,15 @@ methods: {
 <div class="composition-api">
 
 ```js
-function increaseCount(n) {
-  count.value += n
+function aumentarContador(n) {
+  contador.value += n
 }
 ```
 
 </div>
 
 :::tip
-All extra arguments passed to `$emit()` after the event name will be forwarded to the listener. For example, with `$emit('foo', 1, 2, 3)` the listener function will receive three arguments.
+Todos los argumentos adicionales pasados a `$emit()` después del nombre del evento se reenviarán al oyente. Por ejemplo, con `$emit('foo', 1, 2, 3)` la función oyente recibirá tres argumentos.
 :::
 
 ## Declaring Emitted Events
