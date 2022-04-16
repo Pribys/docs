@@ -272,3 +272,208 @@ Es equivalente a:
 ```vue-html
 <BlogPost :id="post.id" :title="post.title" />
 ```
+
+  ## Flujo de datos unidireccional
+
+Todos los props forman un **enlace unidireccional** entre la propiedad secundaria y la principal: cuando la propiedad principal se actualiza, fluirá hacia la secundaria, pero no al revés. Esto evita que los componentes secundarios cambien accidentalmente el estado de los principales, lo que puede hacer que el flujo de datos de su aplicación sea más difícil de entender.
+
+Además, cada vez que se actualice el componente principal, todas las propiedades del componente secundario se actualizarán con el valor más reciente. Esto significa que **no** debe intentar mutar un accesorio dentro de un componente secundario. Si lo hace, Vue le avisará en la consola:
+
+<div class="composition-api">
+
+```js
+const props = defineProps(['foo'])
+
+// ❌ warning, props are readonly!
+props.foo = 'bar'
+```
+
+</div>
+<div class="options-api">
+
+```js
+export default {
+  props: ['foo'],
+  created() {
+    // ❌ warning, props are readonly!
+    this.foo = 'bar'
+  }
+}
+```
+
+</div>
+
+Por lo general, hay dos casos en los que es tentador mutar un prop:
+
+1. **El prop se usa para pasar un valor inicial; el componente secundario lo usará posteriormente como una propiedad local.** En este caso, es mejor definir una propiedad local que use el prop como su valor inicial:
+
+   <div class="composition-api">
+
+   ```js
+   const props = defineProps(['contadorInicio'])
+
+   // contador solo utiliza props.contadorInicio como valor inicial;
+   // está desconectado de futuras actualizaciones de props.
+   const counter = ref(props.contadorInicio)
+   ```
+
+   </div>
+   <div class="options-api">
+
+   ```js
+   export default {
+     props: ['contadorInicio'],
+     data() {
+       return {
+         // contador solo utiliza props.contadorInicio como valor inicial;
+         // está desconectado de futuras actualizaciones de props.
+         counter: this.contadorInicio
+       }
+     }
+   }
+   ```
+
+   </div>
+
+2. **La propiedad se pasa como un valor sin formato que debe transformarse.** En este caso, es mejor definir una propiedad computada usando el valor del prop:
+
+   <div class="composition-api">
+
+   ```js
+   const props = defineProps(['size'])
+
+   // propiedad computada que se actualiza automáticamente cuando cambia la prop
+   const normalizedSize = computed(() => props.size.trim().toLowerCase())
+   ```
+
+   </div>
+   <div class="options-api">
+
+   ```js
+   export default {
+     props: ['size'],
+     computed: {
+       // propiedad computada que se actualiza automáticamente cuando cambia la prop
+       normalizedSize() {
+         return this.size.trim().toLowerCase()
+       }
+     }
+   }
+   ```
+
+   </div>
+
+### Mutar objetos / Matrices Props
+  
+Cuando los objetos y las matrices se pasan como props, aunque que el componente secundario no puede mutar el enlace de la propiedad, si **podrá** mutar las propiedades anidadas del objeto o la matriz. Esto se debe a que en JavaScript los objetos y las matrices se pasan por referencia, y es excesivamente costoso para Vue evitar tales mutaciones.
+
+El principal inconveniente de tales mutaciones es que permite que el componente secundario afecte el estado principal de una manera que no es obvia para este, lo que podría dificultar el razonamiento sobre el flujo de datos en el futuro. Como práctica recomendada, debe evitar este tipo de mutaciones a menos que el padre y el hijo estén estrechamente acoplados por diseño. En la mayoría de los casos, el hijo debería [emitir un evento](/guide/components/events.html) para permitir que el padre realice la mutación.
+
+## Validación de props
+  
+Los componentes pueden especificar requisitos para sus props, como los tipos, que ya hemos visto. Si no se cumple un requisito, Vue le avisará por la consola JavaScript del navegador. Esto es especialmente útil cuando se desarrolla un componente destinado a ser utilizado por otros.
+
+Para especificar validaciones de props, podemos proporcionar un objeto con requisitos de validación para la <span class="composition-api">macro`defineProps()`</span><span class="options-api">opción`props`< /span>, en lugar de una matriz. Por ejemplo:
+
+<div class="composition-api">
+
+```js
+defineProps({
+  // Comprobación de tipo básico:
+  // (valores `null` y `undefined` admiten cualquier tipo)
+  propA: Number,
+  // Múltiples tipos posibles
+  propB: [String, Number],
+  // Requerido string
+  propC: {
+    type: String,
+    required: true
+  },
+  // Number con valor por defecto
+  propD: {
+    type: Number,
+    default: 100
+  },
+  // Object con valor por defecto
+  propE: {
+    type: Object,
+    // Por defecto, se devuelve un objeto o matriz de
+    // una función factory
+    default() {
+      return { message: 'hola' }
+    }
+  },
+  // Función de validación personalizada
+  propF: {
+    validator(value) {
+      // El valor debe coincidir con una de estas cadenas
+      return ['success', 'warning', 'danger'].includes(value)
+    }
+  },
+  // Función con un valor por defecto
+  propG: {
+    type: Function,
+    // A diferencia de los valores predeterminados de objeto o matriz, esta no es una función factory; es una función que sirve como valor predeterminado
+    default() {
+      return 'Default function'
+    }
+  }
+})
+```
+
+:::tip
+El código dentro del argumento `defineProps()` **no puede acceder a otras variables declaradas en `<script setup>`**, porque la expresión completa se mueve a un ámbito de función externo cuando se compila.
+:::
+
+</div>
+<div class="options-api">
+
+```js
+export default {
+  props: {
+    // Comprobación de tipo básico
+    // (valores `null` y `undefined` admiten cualquier tipo)
+    propA: Number,
+    // Múltiples tipos posibles
+    propB: [String, Number],
+    // string requerida
+    propC: {
+      type: String,
+      required: true
+    },
+    // Número con valor por defecto
+    propD: {
+      type: Number,
+      default: 100
+    },
+    // Objecto con valor por defecto
+    propE: {
+      type: Object,
+      // Por defecto, se devuelve un objeto o matriz de
+      // una función factory. La función recibe las props 
+      // crudas que ha recibido el componente como argumento
+      default(rawProps) {
+        // default function receives the raw props object as argument
+        return { message: 'hello' }
+      }
+    },
+    // Custom validator function
+    propF: {
+      validator(value) {
+        // The value must match one of these strings
+        return ['success', 'warning', 'danger'].includes(value)
+      }
+    },
+    // Function with a default value
+    propG: {
+      type: Function,
+      // Unlike object or array default, this is not a factory function - this is a function to serve as a default value
+      default() {
+        return 'Default function'
+      }
+    }
+  }
+}
+```
+
+</div>
