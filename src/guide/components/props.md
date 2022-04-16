@@ -373,7 +373,7 @@ El principal inconveniente de tales mutaciones es que permite que el componente 
   
 Los componentes pueden especificar requisitos para sus props, como los tipos, que ya hemos visto. Si no se cumple un requisito, Vue avisará por la consola JavaScript del navegador. Esto es especialmente útil cuando se desarrolla un componente destinado a ser utilizado por otros.
 
-Para especificar validaciones de props, podemos proporcionar un objeto con requisitos de validación para la <span class="composition-api">macro`defineProps()`</span><span class="options-api">opción`props`< /span>, en lugar de una matriz. Por ejemplo:
+Para especificar validaciones de props, podemos proporcionar un objeto con requisitos de validación para la opción <span class="options-api">`props`< /span>, en lugar de una matriz. Por ejemplo:
 
 <div class="composition-api">
 
