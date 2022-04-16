@@ -275,9 +275,9 @@ Es equivalente a:
 
   ## Flujo de datos unidireccional
 
-Todos los props forman un **enlace unidireccional** entre la propiedad secundaria y la principal: cuando la propiedad principal se actualiza, fluirá hacia la secundaria, pero no al revés. Esto evita que los componentes secundarios cambien accidentalmente el estado de los principales, lo que puede hacer que el flujo de datos de su aplicación sea más difícil de entender.
+Todos los props forman un **enlace unidireccional** entre la propiedad secundaria y la principal: cuando la propiedad principal se actualiza, fluirá hacia la secundaria, pero no al revés. Esto evita que los componentes secundarios cambien accidentalmente el estado de los principales, lo que puede hacer que el flujo de datos de la aplicación sea más difícil de entender.
 
-Además, cada vez que se actualice el componente principal, todas las propiedades del componente secundario se actualizarán con el valor más reciente. Esto significa que **no** debe intentar mutar un accesorio dentro de un componente secundario. Si lo hace, Vue le avisará en la consola:
+Además, cada vez que se actualice el componente principal, todas las propiedades del componente secundario se actualizarán con el valor más reciente. Esto significa que **no** se debe intentar mutar un prop dentro de un componente secundario. Si lo hacemos, Vue nos avisará en la consola:
 
 <div class="composition-api">
 
@@ -305,7 +305,7 @@ export default {
 
 Por lo general, hay dos casos en los que es tentador mutar un prop:
 
-1. **El prop se usa para pasar un valor inicial; el componente secundario lo usará posteriormente como una propiedad local.** En este caso, es mejor definir una propiedad local que use el prop como su valor inicial:
+1. **El prop se usa para pasar un valor inicial. El componente secundario lo usará posteriormente como una propiedad local.** En este caso, es mejor definir una propiedad local que use el prop como su valor inicial:
 
    <div class="composition-api">
 
@@ -342,7 +342,7 @@ Por lo general, hay dos casos en los que es tentador mutar un prop:
    ```js
    const props = defineProps(['size'])
 
-   // propiedad computada que se actualiza automáticamente cuando cambia la prop
+   // propiedad computada que se actualiza automáticamente cuando cambia el prop
    const normalizedSize = computed(() => props.size.trim().toLowerCase())
    ```
 
@@ -353,7 +353,7 @@ Por lo general, hay dos casos en los que es tentador mutar un prop:
    export default {
      props: ['size'],
      computed: {
-       // propiedad computada que se actualiza automáticamente cuando cambia la prop
+       // propiedad computada que se actualiza automáticamente cuando cambia el prop
        normalizedSize() {
          return this.size.trim().toLowerCase()
        }
@@ -363,7 +363,7 @@ Por lo general, hay dos casos en los que es tentador mutar un prop:
 
    </div>
 
-### Mutar objetos / Matrices Props
+### Mutar objetos/matrices Props
   
 Cuando los objetos y las matrices se pasan como props, aunque que el componente secundario no puede mutar el enlace de la propiedad, si **podrá** mutar las propiedades anidadas del objeto o la matriz. Esto se debe a que en JavaScript los objetos y las matrices se pasan por referencia, y es excesivamente costoso para Vue evitar tales mutaciones.
 
@@ -453,21 +453,22 @@ export default {
       // una función factory. La función recibe las props 
       // crudas que ha recibido el componente como argumento
       default(rawProps) {
-        // default function receives the raw props object as argument
-        return { message: 'hello' }
+        // la función predeterminada recibe el objeto prop sin procesar como argumento
+        return { message: 'hola' }
       }
     },
-    // Custom validator function
+    // Función de validación personalizada
     propF: {
       validator(value) {
-        // The value must match one of these strings
+        // El valor debe coincidir con una de estas cadenas
         return ['success', 'warning', 'danger'].includes(value)
       }
     },
-    // Function with a default value
+    // Función con un valor por defecto
     propG: {
       type: Function,
       // Unlike object or array default, this is not a factory function - this is a function to serve as a default value
+      // A diferencia de los valores predeterminados de objeto o matriz, esta no es una función factory; es una función que sirve como valor predeterminado
       default() {
         return 'Default function'
       }
