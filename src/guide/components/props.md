@@ -427,3 +427,56 @@ El código dentro del argumento `defineProps()` **no puede acceder a otras varia
 :::
 
 </div>
+
+  <div class="options-api">
+
+```js
+export default {
+  props: {
+    // Comprobación de tipo básico
+    // (valores `null` y `undefined` admiten cualquier tipo)
+    propA: Number,
+    // Múltiples tipos posibles
+    propB: [String, Number],
+    // string requerida
+    propC: {
+      type: String,
+      required: true
+    },
+    // Número con valor por defecto
+    propD: {
+      type: Number,
+      default: 100
+    },
+    // Objecto con valor por defecto
+    propE: {
+      type: Object,
+      // Por defecto, se devuelve un objeto o matriz de
+      // una función factory. La función recibe las props 
+      // crudas que ha recibido el componente como argumento
+      default(rawProps) {
+        // la función predeterminada recibe el objeto prop sin procesar como argumento
+        return { message: 'hola' }
+      }
+    },
+    // Función de validación personalizada
+    propF: {
+      validator(value) {
+        // El valor debe coincidir con una de estas cadenas
+        return ['success', 'warning', 'danger'].includes(value)
+      }
+    },
+    // Función con un valor por defecto
+    propG: {
+      type: Function,
+      // Unlike object or array default, this is not a factory function - this is a function to serve as a default value
+      // A diferencia de los valores predeterminados de objeto o matriz, esta no es una función factory; es una función que sirve como valor predeterminado
+      default() {
+        return 'Default function'
+      }
+    }
+  }
+}
+```
+
+</div>
