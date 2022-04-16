@@ -230,3 +230,45 @@ En los dos ejemplos anteriores, pasamos valores de cadena, pero _cualquier_ tipo
 <BlogPost :author="post.author" />
 ```
 
+### Vinculación de varias propiedades mediante un objeto
+
+Si queremos pasar todas las propiedadess de un objeto como props, se puede usar `v-bind` [sin argumento](/guide/essentials/template-syntax.html#dynamically-binding-multiple-attributes) (`v -bind` en lugar de `:prop-name`). Por ejemplo, dado un objeto `post`:
+
+<div class="options-api">
+
+```js
+export default {
+  data() {
+    return {
+      post: {
+        id: 1,
+        title: 'My Journey with Vue'
+      }
+    }
+  }
+}
+```
+
+</div>
+<div class="composition-api">
+
+```js
+const post = {
+  id: 1,
+  title: 'My Journey with Vue'
+}
+```
+
+</div>
+
+La siguiente plantilla:
+
+```vue-html
+<BlogPost v-bind="post" />
+```
+
+Es equivalente a:
+
+```vue-html
+<BlogPost :id="post.id" :title="post.title" />
+```
