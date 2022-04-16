@@ -88,9 +88,10 @@ function aumentarContador(n) {
 Todos los argumentos adicionales pasados a `$emit()` después del nombre del evento se reenviarán al oyente. Por ejemplo, con `$emit('foo', 1, 2, 3)` la función oyente recibirá tres argumentos.
 :::
 
-## Declaring Emitted Events
+## Declarar los eventos emitidos
 
-Emitted events can be explicitly declared on the component via the <span class="composition-api">[`defineEmits()`](/api/sfc-script-setup.html#defineprops-defineemits) macro</span><span class="options-api">[`emits`](/api/options-state.html#emits) option</span>.
+Emitted events can be explicitly declared on the component via the opción <span class="composition-api">[`defineEmits()`](/api/sfc-script-setup.html#defineprops-defineemits) macro</span><span class="options-api">[`emits`](/api/options-state.html#emits) option</span>.
+Los eventos emitidos se pueden declarar explícitamente en el componente mediante la <span class="composition-api">[`defineEmits()`](/api/sfc-script-setup.html#defineprops-defineemits) macro</span>< span class="options-api">[`emits`](/api/options-state.html#emits) </span>.
 
 <div class="composition-api">
 
