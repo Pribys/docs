@@ -180,7 +180,7 @@ Si se define un evento nativo (por ejemplo, `click`) en la opción `emits`, el o
 
 De manera similar a la validación de tipo de un prop, un evento emitido se puede validar si se define con la sintaxis de objeto en lugar de la sintaxis de matriz.
 
-Para agregar validación, al evento se le asigna una función que recibe los argumentos pasados a <span class="options-api">`this.$emit`</span><span class="composition-api">`emit`</span> llamada y devuelve un valor booleano para indicar si el evento es válido o no.
+Para agregar validación, al evento se le asigna una función que recibe los argumentos pasados a la <span class="options-api">`this.$emit`</span><span class="composition-api">`emit`</span> llamada y devuelve un valor booleano para indicar si el evento es válido o no.
 
 <div class="composition-api">
 
