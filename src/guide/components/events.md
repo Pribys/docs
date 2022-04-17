@@ -100,9 +100,9 @@ const emit = defineEmits(['inFocus', 'submit'])
 </script>
 ```
 
-The returned `emit` function can be used to emit events in JavaScript.
+La función `emit` devuelta se puede usar para emitir eventos en JavaScript.
 
-If not using `<script setup>`, events should be declared using the [`emits`](/api/options-state.html#emits) option, and the `emit` function is exposed on the `setup()` context:
+Si no se usa `<script setup>`, los eventos deben declararse usando la opción [`emits`](/api/options-state.html#emits), y la función `emit` se expone en el contexto `setup()`:
 
 ```js
 export default {
@@ -124,7 +124,7 @@ export default {
 
 </div>
 
-The `emits` option also supports an object syntax, which allows us to perform runtime validation of the payload of the emitted events:
+La opción `emits` también admite una sintaxis de objeto, lo que nos permite realizar una validación en tiempo de ejecución del contenido de los eventos emitidos:
 
 <div class="composition-api">
 
@@ -132,14 +132,14 @@ The `emits` option also supports an object syntax, which allows us to perform ru
 <script setup>
 const emit = defineEmits({
   submit(payload) {
-    // return `true` or `false` to indicate
-    // validation pass / fail
+    // devuelve `true` o `false` para indicar
+    // si la validación pasa / falla
   }
 })
 </script>
 ```
 
-If you are using TypeScript with `<script setup>`, it's also possible to declare emitted events using pure type annotations:
+Si se usa TypeScript con `<script setup>`, también es posible declarar eventos emitidos usando anotaciones de tipo puro:
 
 ```vue
 <script setup lang="ts">
@@ -150,7 +150,7 @@ const emit = defineEmits<{
 </script>
 ```
 
-More details: [Typing Component Emits](/guide/typescript/composition-api.html#typing-component-emits) <sup class="vt-badge ts" />
+Más detalles: [Typing Component Emits](/guide/typescript/composition-api.html#typing-component-emits) <sup class="vt-badge ts" />
 
 </div>
 <div class="options-api">
@@ -159,38 +159,38 @@ More details: [Typing Component Emits](/guide/typescript/composition-api.html#ty
 export default {
   emits: {
     submit(payload) {
-      // return `true` or `false` to indicate
-      // validation pass / fail
+      // devuelve `true` o `false` para indicar
+      // si la validación pasa / falla
     }
   }
 }
 ```
 
-See also: [Typing Component Emits](/guide/typescript/options-api.html#typing-component-emits) <sup class="vt-badge ts" />
+Ver también: [Typing Component Emits](/guide/typescript/options-api.html#typing-component-emits) <sup class="vt-badge ts" />
 
 </div>
 
-Although optional, it is recommended to define all emitted events in order to better document how a component should work. It also allows Vue to exclude known listeners from [fallthrough attributes](/guide/components/attrs.html#v-on-listener-inheritance).
+Aunque es opcional, se recomienda definir todos los eventos emitidos para documentar mejor cómo debería funcionar un componente. También permite que Vue excluya oyentes conocidos de [atributos fallidos](/guide/components/attrs.html#v-on-listener-inheritance).
 
 :::tip
-If a native event (e.g., `click`) is defined in the `emits` option, the listener will now only listen to component-emitted `click` events and no longer respond to native `click` events.
+Si se define un evento nativo (por ejemplo, `click`) en la opción `emits`, el oyente ahora solo escuchará los eventos `click` emitidos por el componente y ya no responderá a los eventos `click` nativos.
 :::
 
-## Events Validation
+## Validación de eventos
 
-Similar to prop type validation, an emitted event can be validated if it is defined with the object syntax instead of the array syntax.
+De manera similar a la validación de tipo de un prop, un evento emitido se puede validar si se define con la sintaxis de objeto en lugar de la sintaxis de matriz.
 
-To add validation, the event is assigned a function that receives the arguments passed to the <span class="options-api">`this.$emit`</span><span class="composition-api">`emit`</span> call and returns a boolean to indicate whether the event is valid or not.
+Para agregar validación, al evento se le asigna una función que recibe los argumentos pasados a <span class="options-api">`this.$emit`</span><span class="composition-api">`emit`</span> llamada y devuelve un valor booleano para indicar si el evento es válido o no.
 
 <div class="composition-api">
 
 ```vue
 <script setup>
 const emit = defineEmits({
-  // No validation
+  // Sin validación
   click: null,
 
-  // Validate submit event
+  // Validación de evento emitido
   submit: ({ email, password }) => {
     if (email && password) {
       return true
