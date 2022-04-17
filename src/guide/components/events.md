@@ -213,10 +213,10 @@ function submitForm(email, password) {
 ```js
 export default {
   emits: {
-    // No validation
+    // Sin validación
     click: null,
 
-    // Validate submit event
+    // Validación de evento emitido
     submit: ({ email, password }) => {
       if (email && password) {
         return true
@@ -236,15 +236,15 @@ export default {
 
 </div>
 
-## Usage with `v-model`
+## Uso con `v-model`
 
-Custom events can also be used to create custom inputs that work with `v-model`. Remember that:
+Los eventos también se pueden usar para crear entradas de texto que funcionen con `v-model`. Recuerda:
 
 ```vue-html
 <input v-model="searchText" />
 ```
 
-does the same thing as:
+hace lo mismo que:
 
 ```vue-html
 <input
@@ -253,7 +253,7 @@ does the same thing as:
 />
 ```
 
-When used on a component, `v-model` instead does this:
+Cuando se usa en un componente, `v-model` funciona así:
 
 ```vue-html
 <CustomInput
@@ -261,13 +261,13 @@ When used on a component, `v-model` instead does this:
   @update:modelValue="newValue => searchText = newValue"
 />
 ```
+  
+Sin embargo, para que esto realmente funcione, el `<input>` dentro del componente debe:
 
-For this to actually work though, the `<input>` inside the component must:
+- Vincular el atributo `value` al prop `modelValue`
+- Desde `input`, emitir un evento `update:modelValue` con el nuevo valor
 
-- Bind the `value` attribute to the `modelValue` prop
-- On `input`, emit an `update:modelValue` event with the new value
-
-Here's that in action:
+Lo vemos en acción:
 
 <div class="options-api">
 
@@ -308,7 +308,7 @@ defineEmits(['update:modelValue'])
 
 </div>
 
-Now `v-model` should work perfectly with this component:
+Ahora `v-model` debería funcionar perfectamente con este componente:
 
 ```vue-html
 <CustomInput v-model="searchText" />
@@ -325,7 +325,7 @@ Now `v-model` should work perfectly with this component:
 
 </div>
 
-Another way of implementing `v-model` within this component is to use a writable `computed` property with both a getter and a setter. The `get` method should return the `modelValue` property and the `set` method should emit the corresponding event:
+Otra forma de implementar `v-model` dentro de este componente es usar una propiedad `computed` escribible con un getter y un setter. El método `get` debería devolver la propiedad `modelValue` y el método `set` debería emitir el evento correspondiente:
 
 <div class="options-api">
 
@@ -381,20 +381,21 @@ const value = computed({
 
 </div>
 
-### `v-model` arguments
+### Argumentos en `v-model`
 
-By default, `v-model` on a component uses `modelValue` as the prop and `update:modelValue` as the event. We can modify these names passing an argument to `v-model`:
+Por defecto, `v-model` en un componente usa `modelValue` como prop y `update:modelValue` como evento. Podemos modificar estos nombres pasando un argumento a `v-model`:
 
 ```vue-html
-<MyComponent v-model:title="bookTitle" />
+<MiComponente v-model:title="Título" />
 ```
 
 In this case, the child component should expect a `title` prop and emit an `update:title` event to update the parent value:
+En este caso, el componente secundario debe esperar un prop `title` y emitir un evento `update:title` para actualizar el valor del componente principal:
 
 <div class="composition-api">
 
 ```vue
-<!-- MyComponent.vue -->
+<!-- MiComponente.vue -->
 <script setup>
 defineProps(['title'])
 defineEmits(['update:title'])
@@ -436,16 +437,16 @@ export default {
 
 </div>
 
-### Multiple `v-model` bindings
+### Multiple enlaces `v-model` 
 
-By leveraging the ability to target a particular prop and event as we learned before with [`v-model` arguments](#v-model-arguments), we can now create multiple v-model bindings on a single component instance.
+Para aprovechar la capacidad de apuntar a un prop y evento en particular, como hemos aprendido en [argumentos en `v-model`] (#v-model-arguments), ahora podemos crear múltiples enlaces de v-model en una sola instancia de componente.
 
-Each v-model will sync to a different prop, without the need for extra options in the component:
+Cada v-model se sincronizará con un prop diferente, sin necesidad de opciones adicionales en el componente:
 
 ```vue-html
 <UserName
-  v-model:first-name="firstName"
-  v-model:last-name="lastName"
+  v-model:nombre="nombre"
+  v-model:apellido="apellido"
 />
 ```
 
@@ -454,23 +455,23 @@ Each v-model will sync to a different prop, without the need for extra options i
 ```vue
 <script setup>
 defineProps({
-  firstName: String,
-  lastName: String
+  nombre: String,
+  apellido: String
 })
 
-defineEmits(['update:firstName', 'update:lastName'])
+defineEmits(['update:nombre', 'update:apellido'])
 </script>
 
 <template>
   <input
     type="text"
-    :value="firstName"
-    @input="$emit('update:firstName', $event.target.value)"
+    :value="nombre"
+    @input="$emit('update:nombre', $event.target.value)"
   />
   <input
     type="text"
-    :value="lastName"
-    @input="$emit('update:lastName', $event.target.value)"
+    :value="apellido"
+    @input="$emit('update:apellido', $event.target.value)"
   />
 </template>
 ```
@@ -484,23 +485,23 @@ defineEmits(['update:firstName', 'update:lastName'])
 <script>
 export default {
   props: {
-    firstName: String,
-    lastName: String
+    nombre: String,
+    apellido: String
   },
-  emits: ['update:firstName', 'update:lastName']
+  emits: ['update:nombre', 'update:apellido']
 }
 </script>
 
 <template>
   <input
     type="text"
-    :value="firstName"
-    @input="$emit('update:firstName', $event.target.value)"
+    :value="nombre"
+    @input="$emit('update:nombre', $event.target.value)"
   />
   <input
     type="text"
-    :value="lastName"
-    @input="$emit('update:lastName', $event.target.value)"
+    :value="apellido"
+    @input="$emit('update:apellido', $event.target.value)"
   />
 </template>
 ```
@@ -509,17 +510,17 @@ export default {
 
 </div>
 
-### Handling `v-model` modifiers
+### Manejo de modificadores `v-model`
 
-When we were learning about form input bindings, we saw that `v-model` has [built-in modifiers](/guide/essentials/forms.html#modifiers) - `.trim`, `.number` and `.lazy`. In some cases, however, you might also want to add your own custom modifiers.
+Cuando estábamos aprendiendo sobre los campos de entrada de formulario, vimos que `v-model` tiene [modificadores incorporados] (/guide/essentials/forms.html#modifiers) - `.trim`, `.number` y `.lazy `. Sin embargo, en algunos casos, es posible que prefieras utilizar tus propios modificadores personalizados.
 
-Let's create an example custom modifier, `capitalize`, that capitalizes the first letter of the string provided by the `v-model` binding:
+Vamos a crear el modificador personalizado de ejemplo, `mayúsculas`, que pone en mayúscula la primera letra de la cadena proporcionada por el enlace `v-model`:
 
 ```vue-html
-<MyComponent v-model.capitalize="myText" />
+<MiComponente v-model.mayuscula="miTexto" />
 ```
 
-Modifiers added to a component `v-model` will be provided to the component via the `modelModifiers` prop. In the below example, we have created a component that contains a `modelModifiers` prop that defaults to an empty object:
+Los modificadores agregados a un componente `v-model` se proporcionarán al componente a través de la propiedad `modelModifiers`. En el siguiente ejemplo, hemos creado un componente que contiene una prop `modelModifiers` que, por defecto, es un objeto vacío:
 
 <div class="composition-api">
 
@@ -532,7 +533,7 @@ const props = defineProps({
 
 defineEmits(['update:modelValue'])
 
-console.log(props.modelModifiers) // { capitalize: true }
+console.log(props.modelModifiers) // { mayuscula: true }
 </script>
 
 <template>
@@ -558,7 +559,7 @@ export default {
   },
   emits: ['update:modelValue'],
   created() {
-    console.log(this.modelModifiers) // { capitalize: true }
+    console.log(this.modelModifiers) // { mayuscula: true }
   }
 }
 </script>
@@ -574,9 +575,10 @@ export default {
 
 </div>
 
-Notice the component's `modelModifiers` prop contains `capitalize` and its value is `true` - due to it being set on the `v-model` binding `v-model.capitalize="myText"`.
+Observar que la propiedad `modelModifiers` del componente contiene `mayúscula` y su valor es `true`, debido a que se configuró en el enlace `v-model` `v-model.mayuscula="miTexto"`.
 
 Now that we have our prop set up, we can check the `modelModifiers` object keys and write a handler to change the emitted value. In the code below we will capitalize the string whenever the `<input />` element fires an `input` event.
+Ahora que tenemos configurado nuestro prop, podemos verificar las claves del objeto `modelModifiers` y escribir un controlador para cambiar el valor emitido. En el siguiente código, pondremos en mayúsculas la cadena cada vez que el elemento `<input />` active un evento `input`.
 
 <div class="composition-api">
 
@@ -591,7 +593,7 @@ const emit = defineEmits(['update:modelValue'])
 
 function emitValue(e) {
   let value = e.target.value
-  if (props.modelModifiers.capitalize) {
+  if (props.modelModifiers.mayuscula) {
     value = value.charAt(0).toUpperCase() + value.slice(1)
   }
   emit('update:modelValue', value)
@@ -621,7 +623,7 @@ export default {
   methods: {
     emitValue(e) {
       let value = e.target.value
-      if (this.modelModifiers.capitalize) {
+      if (this.modelModifiers.mayuscula) {
         value = value.charAt(0).toUpperCase() + value.slice(1)
       }
       this.$emit('update:modelValue', value)
@@ -639,10 +641,10 @@ export default {
 
 </div>
 
-For `v-model` bindings with both argument and modifiers, the generated prop name will be `arg + "Modifiers"`. For example:
+Para enlaces `v-model` con argumentos y modificadores, el nombre de la propiedad generada será `arg + "Modificadores"`. Por ejemplo:
 
 ```vue-html
-<MyComponent v-model:title.capitalize="myText">
+<MiComponente v-model:title.mayuscula="miTexto">
 ```
 
 The corresponding declarations should be:
@@ -653,7 +655,7 @@ The corresponding declarations should be:
 const props = defineProps(['title', 'titleModifiers'])
 defineEmits(['update:title'])
 
-console.log(props.titleModifiers) // { capitalize: true }
+console.log(props.titleModifiers) // { mayuscula: true }
 ```
 
 </div>
@@ -664,7 +666,7 @@ export default {
   props: ['title', 'titleModifiers'],
   emits: ['update:title'],
   created() {
-    console.log(this.titleModifiers) // { capitalize: true }
+    console.log(this.titleModifiers) // { mayuscula: true }
   }
 }
 ```
