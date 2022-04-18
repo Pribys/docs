@@ -2,15 +2,15 @@
 outline: deep
 ---
 
-# Atributos fallidos (Fallthrough)
+# Atributos perdidos (Fallthrough)
 
 > Se supone que ya conoces lo tratado en [lo básico sobre componentes](/guide/essentials/component-basics). Si eres novato, deberías leer primero esa sección.
 
 ## Herencia de atributos
 
-Un "atributo fallido" (o "fallthrough attribute" en inglés) es un atributo u oyente `v-on` que se pasa a un componente, pero que no se declara explícitamente en los [props](./props) o [emits](./events.html#declarar-los-eventos-emitidos) del componente receptor. Los ejemplos comunes de esto incluyen los atributos `class`, `estyle` e `id`.
+Un "atributo perdido" (o "fallthrough attribute" en inglés) es un atributo u oyente `v-on` que se pasa a un componente, pero que no se declara explícitamente en los [props](./props) o [emits](./events.html#declarar-los-eventos-emitidos) del componente receptor. Los ejemplos comunes de esto incluyen los atributos `class`, `estyle` e `id`.
 
-Cuando un componente representa un único elemento raíz, los atributos fallidos se agregarán automáticamente a los atributos del elemento raíz. Por ejemplo, dado un componente `<MiBoton>` con la siguiente plantilla:
+Cuando un componente representa un único elemento raíz, los atributos perdidos se agregarán automáticamente a los atributos del elemento raíz. Por ejemplo, dado un componente `<MiBoton>` con la siguiente plantilla:
 
 ```vue-html
 <!-- template of <MiBoton> -->
@@ -63,7 +63,7 @@ Si un componente representa a otro componente como su nodo raíz, por ejemplo, s
 <BotonBase />
 ```
 
-Entonces, los atributos fallidos recibidos por `<MiBoton>` se reenviarán automáticamente a `<BotonBase>`.
+Entonces, los atributos perdidos recibidos por `<MiBoton>` se reenviarán automáticamente a `<BotonBase>`.
 
 Debe tenerse en cuenta que:
 
@@ -94,9 +94,9 @@ export default {
 
 </div>
 
-El escenario común para deshabilitar la herencia de atributos es cuando los atributos deben aplicarse a otros elementos además del nodo raíz. Al establecer la opción `inheritAttrs` en `false`, podemos tomar el control total sobre dónde se deben aplicar los atributos fallidos.
+El escenario común para deshabilitar la herencia de atributos es cuando los atributos deben aplicarse a otros elementos además del nodo raíz. Al establecer la opción `inheritAttrs` en `false`, podemos tomar el control total sobre dónde se deben aplicar los atributos perdidos.
 
-Se puede acceder a estos atributos fallidos directamente en expresiones de plantilla como `$attrs`:
+Se puede acceder a estos atributos perdidos directamente en expresiones de plantilla como `$attrs`:
 
 ```vue-html
 <span>Atributos fallidos: {{ $attrs }}</span>
@@ -106,7 +106,7 @@ El objeto `$attrs` incluye todos los atributos que no están declarados por las 
 
 Algunas notas:
   
-- A diferencia de los props, los atributos fallidos conservan su escritura original en JavaScript, por lo que se debe acceder a un atributo como `foo-bar` como `$attrs['foo-bar']`.
+- A diferencia de los props, los atributos perdidos conservan su escritura original en JavaScript, por lo que se debe acceder a un atributo como `foo-bar` como `$attrs['foo-bar']`.
 
 - Un oyente de eventos `v-on` como `@click` se incluirá en el objeto como una función en `$attrs.onClick`.
 
@@ -118,7 +118,7 @@ Usando nuestro ejemplo de componente `<MiBoton>` de la [sección anterior](#here
 </div>
 ```
 
-Queremos que todos los atributos fallidos como `class` y los oyentes `v-on` se apliquen al `<button>` interior, no al `<div>` exterior. Podemos lograrlo con `inheritAttrs: false` y `v-bind="$attrs"`:
+Queremos que todos los atributos perdidos como `class` y los oyentes `v-on` se apliquen al `<button>` interior, no al `<div>` exterior. Podemos lograrlo con `inheritAttrs: false` y `v-bind="$attrs"`:
 
 ```vue-html{2}
 <div class="btn-wrapper">
@@ -128,15 +128,15 @@ Queremos que todos los atributos fallidos como `class` y los oyentes `v-on` se a
 
 Recuerde que [`v-bind` sin argumento](/guide/essentials/template-syntax.html#dynamically-binding-multiple-attributes) vincula todas las propiedades de un objeto como atributos del elemento de destino.
 
-## Attribute Inheritance on Multiple Root Nodes
+## Herencia de atributos en varios nodos raíz
 
-Unlike components with a single root node, components with multiple root nodes do not have an automatic attribute fallthrough behavior. If `$attrs` are not bound explicitly, a runtime warning will be issued.
+A diferencia de los componentes con un solo nodo raíz, los componentes con múltiples nodos raíz no tienen un comportamiento automático de atributos perdidos. Si `$attrs` no están vinculados explícitamente, se emitirá una advertencia en tiempo de ejecución.
 
 ```vue-html
 <CustomLayout id="custom-layout" @click="changeValue" />
 ```
 
-If `<CustomLayout>` has the following multi-root template, there will be a warning because Vue cannot be sure where to apply the fallthrough attributes:
+Si `<CustomLayout>` tiene la siguiente plantilla multirraíz, habrá una advertencia porque Vue no puede estar seguro de dónde aplicar los atributos perdidos:
 
 ```vue-html
 <header>...</header>
@@ -144,7 +144,7 @@ If `<CustomLayout>` has the following multi-root template, there will be a warni
 <footer>...</footer>
 ```
 
-The warning will be suppressed if `$attrs` is explicitly bound:
+La advertencia se suprimirá si `$attrs` está vinculado explícitamente:
 
 ```vue-html{2}
 <header>...</header>
@@ -152,11 +152,11 @@ The warning will be suppressed if `$attrs` is explicitly bound:
 <footer>...</footer>
 ```
 
-## Accessing Fallthrough Attributes in JavaScript
+## Acceder a los atributos perdidos en JavaScript
 
 <div class="composition-api">
 
-If needed, you can access a component's fallthrough attributes in `<script setup>` using the `useAttrs()` API:
+Si es necesario, se puede acceder a los atributos perdidos de un componente en `<script setup>` utilizando la API `useAttrs()`:
 
 ```vue
 <script setup>
@@ -166,24 +166,25 @@ const attrs = useAttrs()
 </script>
 ```
 
-If not using `<script setup>`, `attrs` will be exposed as a property of the `setup()` context:
+Si no se usa `<script setup>`, `attrs` se declarará como una propiedad del contexto `setup()`:
 
 ```js
 export default {
   setup(props, ctx) {
-    // fallthrough attributes are exposed as ctx.attrs
+    // los atributos perdidos se exponen como ctx.attrs
     console.log(ctx.attrs)
   }
 }
 ```
 
 Note that although the `attrs` object here always reflect the latest fallthrough attributes, it isn't reactive (for performance reasons). You cannot use watchers to observe its changes. If you need reactivity, use a prop. Alternatively, you can use `onUpdated()` to perform side effects with latest `attrs` on each update.
+Hay que tener en cuenta que aunque el objeto `attrs` aquí siempre refleja los últimos atributos perdidos, no es reactivo (por razones de rendimiento). No se puede utilizar observadores (watchers) para seguir sus cambios. Si necesitamos reactividad, podemos usar un prop. Alternativamente, se puede usar `onUpdated()` para realizar efectos secundarios con los últimos `attrs` en cada actualización.
 
 </div>
 
 <div class="options-api">
 
-If needed, you can access a component's fallthrough attributes via the `$attrs` instance property:
+Si fuese necesario, se puede acceder a los atributos perdidos de un componente a través de la propiedad de instancia `$attrs`:
 
 ```js
 export default {
