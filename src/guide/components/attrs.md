@@ -94,7 +94,6 @@ export default {
 
 </div>
 
-The common scenario for disabling attribute inheritance is when attributes need to be applied to other elements besides the root node. By setting the `inheritAttrs` option to `false`, you can take full control over where the fallthrough attributes should be applied.
 El escenario común para deshabilitar la herencia de atributos es cuando los atributos deben aplicarse a otros elementos además del nodo raíz. Al establecer la opción `inheritAttrs` en `false`, podemos tomar el control total sobre dónde se deben aplicar los atributos fallidos.
 
 Se puede acceder a estos atributos fallidos directamente en expresiones de plantilla como `$attrs`:
@@ -111,7 +110,7 @@ Algunas notas:
 
 - Un oyente de eventos `v-on` como `@click` se incluirá en el objeto como una función en `$attrs.onClick`.
 
-Usando nuestro ejemplo de componente `<MiBoton>` de la [sección anterior](#attribute-inheritance), a veces es posible que necesitemos envolver el elemento `<button>` real con un `<div>` adicional por motivos de estilo:
+Usando nuestro ejemplo de componente `<MiBoton>` de la [sección anterior](#herencia-de-atributos), a veces es posible que necesitemos envolver el elemento `<button>` real con un `<div>` adicional por motivos de estilo:
 
 ```vue-html
 <div class="btn-wrapper">
@@ -119,15 +118,15 @@ Usando nuestro ejemplo de componente `<MiBoton>` de la [sección anterior](#attr
 </div>
 ```
 
-We want all fallthrough attributes like `class` and `v-on` listeners to be applied to the inner `<button>`, not the outer `<div>`. We can achieve this with `inheritAttrs: false` and `v-bind="$attrs"`:
+Queremos que todos los atributos fallidos como `class` y los oyentes `v-on` se apliquen al `<button>` interior, no al `<div>` exterior. Podemos lograrlo con `inheritAttrs: false` y `v-bind="$attrs"`:
 
 ```vue-html{2}
 <div class="btn-wrapper">
-  <button class="btn" v-bind="$attrs">click me</button>
+  <button class="btn" v-bind="$attrs">Pulsar</button>
 </div>
 ```
 
-Remember that [`v-bind` without an argument](/guide/essentials/template-syntax.html#dynamically-binding-multiple-attributes) binds all the properties of an object as attributes of the target element.
+Recuerde que [`v-bind` sin argumento](/guide/essentials/template-syntax.html#dynamically-binding-multiple-attributes) vincula todas las propiedades de un objeto como atributos del elemento de destino.
 
 ## Attribute Inheritance on Multiple Root Nodes
 
